@@ -9,14 +9,90 @@ public class CMDMovement : MonoBehaviour
     private Rigidbody2D body;
 
     [SerializeField]
-    private float force;
+    private float timeScale;
 
-    public void DoCommand(DirectionCommand command) 
+    [SerializeField]
+    private float defaultSpeed;
+
+    [SerializeField]
+    private float defaultDistance;
+
+    // Slow mo
+    private bool slowmoState;
+    private Vector2 curVelocity;
+
+    // Movement
+    private bool isMoving;
+    private float curSpeed;
+    private float curDistance;
+    private Vector2 orgPosition;
+    private Vector2 curDirection;
+
+    void FixedUpdate()
     {
-        body.velocity = Vector2.zero;
-        body.AddForce(GetDirection(command.direction) * force);
+        if (isMoving)
+        {
+            // Slow mo during command movement
+            if (slowmoState)
+                body.velocity = (curDirection * curSpeed) * timeScale;
+            else
+            // Non slow mo movement
+                body.velocity = curDirection * curSpeed;
+
+            // Keep going until reaching max distance
+            if (Vector2.Distance(transform.position, orgPosition) > curDistance)
+            {
+                isMoving = false;
+                body.velocity = Vector2.zero;
+            }
+        }
+        else if (!isMoving && slowmoState) 
+        {
+            if (curVelocity == Vector2.zero)
+                curVelocity = body.velocity;
+
+            // Slow mo during gravity
+            body.velocity = curVelocity * timeScale;
+        }
     }
 
+    // Set up default movement
+    public void DoCommand(List<DirectionCommand> dirCommand) 
+    {
+        body.velocity = Vector2.zero;
+        curSpeed = defaultSpeed;
+        curDistance = defaultDistance;
+
+        // Add all directions together
+        curDirection = Vector2.zero;
+        foreach (DirectionCommand cmd in dirCommand)
+        {
+            curDirection += GetDirection(cmd.direction);
+        }
+
+        orgPosition = transform.position;
+        isMoving = true;
+    }
+
+    // Setup movement for other command
+    public void DoCommand(List<DirectionCommand> dirCommand, float speed, float distance)
+    {
+        body.velocity = Vector2.zero;
+        curSpeed = speed;
+        curDistance = distance;
+
+        // Add all directions together
+        curDirection = Vector2.zero;
+        foreach (DirectionCommand cmd in dirCommand) 
+        {
+            curDirection += GetDirection(cmd.direction);
+        }
+        
+        orgPosition = transform.position;
+        isMoving = true;
+    }
+
+    // Return direction from command
     private Vector2 GetDirection(string dir) 
     {
         Vector2 direction = Vector2.zero;
@@ -48,5 +124,16 @@ public class CMDMovement : MonoBehaviour
         }
 
         return direction.normalized;
+    }
+
+    public void EnterSlowmo()
+    {
+        curVelocity = Vector2.zero;
+        slowmoState = true;
+    }
+
+    public void ExitSlowmo()
+    {
+        slowmoState = false;
     }
 }

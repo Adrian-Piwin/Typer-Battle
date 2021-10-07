@@ -11,8 +11,6 @@ public class DirectionCommand
     public string direction;
     // Command to type to go that direction
     public string command;
-    // Cooldown after command
-    public float cooldown;
 }
 
 [System.Serializable]
@@ -61,9 +59,6 @@ public class PlayerCommands : MonoBehaviour
     private TextMeshPro commandText;
 
     [SerializeField]
-    private PlayerSlowmo playerSlowmo;
-
-    [SerializeField]
     private PlayerCooldown playerCooldown;
 
     [SerializeField]
@@ -76,6 +71,9 @@ public class PlayerCommands : MonoBehaviour
 
     [SerializeField]
     private CMDMovement cmdMovement;
+
+    [SerializeField]
+    private CMDBasicAtk cmdBasicAtk;
 
     private List<string> currentCommand;
 
@@ -108,25 +106,26 @@ public class PlayerCommands : MonoBehaviour
     private void OnCommandEnter() 
     {
         // Check for valid commands
-        DirectionCommand directionCommand = CheckValidDirectionCommand();
-        Command command = CheckValidCommand();
+        List<DirectionCommand> directionCommand = GetValidDirectionCommand();
+        Command command = GetValidCommand();
         
         // Did valid command, specifically a direction only command
-        if (directionCommand != null && GetCommands().Count == 1)
+        if (directionCommand != null && CheckValidCommand() == 0)
         {
             // Do command
             cmdMovement.DoCommand(directionCommand);
-
-            // Apply cooldown
-            playerCooldown.ApplyCooldown(directionCommand.cooldown);
         }
         // Did valid command
         else if (command != null)
         {
             // Do command
+            switch (command.commandName) 
+            {
+                case "Light":
+                    cmdBasicAtk.DoCommand(directionCommand, command);
+                    break;
+            }
 
-            // Apply cooldown
-            playerCooldown.ApplyCooldown(command.cooldown);
         }
         // Did unvalid command
         else
@@ -134,7 +133,6 @@ public class PlayerCommands : MonoBehaviour
             // Apply cooldown
             playerCooldown.ApplyCooldown(exitTypingStateCD);
         }
-        
 
         // Clear command text
         currentCommand.Clear();
@@ -162,44 +160,110 @@ public class PlayerCommands : MonoBehaviour
         else 
         {
             // Delete normally
-            currentCommand.RemoveAt(currentCommand.Count - 1);
+            if (currentCommand.Count != 0)
+                currentCommand.RemoveAt(currentCommand.Count - 1);
         }
+
+        // Apply cooldown on exit of typing state
+        if (currentCommand.Count == 0)
+            playerCooldown.ApplyCooldown(exitTypingStateCD);
 
         CheckSlowmoState();
         UpdateCommandText();
     }
 
-    // Check if current command is valid
-    private DirectionCommand CheckValidDirectionCommand() 
+    // Get current command if valid
+    private List<DirectionCommand> GetValidDirectionCommand() 
     {
         // Check if first command in current command list is a valid direction
         List<string> commandList = GetCommands();
 
-        foreach (DirectionCommand directionalCommand in directionCommands) 
+        List<DirectionCommand> dirCommands = new List<DirectionCommand>();
+
+        foreach (string cmd in commandList) 
         {
-            if (commandList[0] == directionalCommand.command) { return directionalCommand; }
+            foreach (DirectionCommand directionalCommand in directionCommands)
+            {
+                if (cmd == directionalCommand.command) 
+                { 
+                    dirCommands.Add(directionalCommand);
+                    break;
+                }
+            }
         }
+
+        if (dirCommands.Count != 0)
+            return dirCommands;
 
         return null;
     }
 
     // Check if current command is valid
-    private Command CheckValidCommand()
+    // 1: Valid command
+    // 0: No Command Found
+    // -1: Invalid command typed
+    private int CheckValidCommand()
+    {
+        // Check if there is a valid command
+        List<string> commandList = GetCommands();
+        List<DirectionCommand> dirCommand = GetValidDirectionCommand();
+
+        // Remove directional commands from command list
+        for (int i = commandList.Count-1; i >= 0; i--) 
+        {
+            foreach (DirectionCommand directionalCommand in directionCommands) 
+            {
+                if (commandList[i] == directionalCommand.command) 
+                {
+                    commandList.RemoveAt(i);
+                    break;
+                }
+            }
+        }
+
+        // Check if command is valid
+        foreach (string cmd in commandList) 
+        {
+            foreach (Command command in commands)
+            {
+                if (cmd == command.command) 
+                {
+                    // Check if must include direction and direction is included
+                    if ((command.directionType == Command.DirectionType.MustInclude || command.directionType == Command.DirectionType.Optional) &&
+                        dirCommand != null)
+                        return 1;
+
+                    // Check if must not include direction and direction is not included
+                    else if ((command.directionType == Command.DirectionType.MustNotInclude || command.directionType == Command.DirectionType.Optional) &&
+                        dirCommand == null)
+                        return 1;
+                }
+            }
+        }
+
+        if (commandList.Count != 0)
+            return -1;
+
+        return 0;
+    }
+
+    // Get current command if valid
+    private Command GetValidCommand()
     {
         // Check if there is a valid command
         List<string> commandList = GetCommands();
 
-        foreach (string command in commandList) 
+        foreach (string cmd in commandList)
         {
-            foreach (Command cmd in commands)
+            foreach (Command command in commands)
             {
-                if (command == cmd.command) 
+                if (cmd == command.command)
                 {
-                    if (((cmd.directionType == Command.DirectionType.MustInclude || cmd.directionType == Command.DirectionType.Optional) &&
-                        CheckValidDirectionCommand() != null) ||
-                        ((cmd.directionType == Command.DirectionType.MustNotInclude || cmd.directionType == Command.DirectionType.Optional) &&
+                    if (((command.directionType == Command.DirectionType.MustInclude || command.directionType == Command.DirectionType.Optional) &&
+                        GetValidDirectionCommand() != null) ||
+                        ((command.directionType == Command.DirectionType.MustNotInclude || command.directionType == Command.DirectionType.Optional) &&
                         commandList.Count == 1))
-                        return cmd;
+                        return command;
                 }
             }
         }
@@ -242,7 +306,7 @@ public class PlayerCommands : MonoBehaviour
         commandText.text = command;
 
         // Check if command is valid, changing text color
-        if (CheckValidCommand() != null || (CheckValidDirectionCommand() != null && GetCommands().Count == 1))
+        if (CheckValidCommand() == 1 || (GetValidDirectionCommand() != null && CheckValidCommand() == 0))
             commandText.color = validCommandColor;
         else
             commandText.color = unvalidCommandColor;
@@ -252,9 +316,9 @@ public class PlayerCommands : MonoBehaviour
     private void CheckSlowmoState()
     {
         if (currentCommand.Count != 0)
-            playerSlowmo.EnterSlowmo();
+            cmdMovement.EnterSlowmo();
         else
-            playerSlowmo.ExitSlowmo();
+            cmdMovement.ExitSlowmo();
     }
 
     // Get key input
