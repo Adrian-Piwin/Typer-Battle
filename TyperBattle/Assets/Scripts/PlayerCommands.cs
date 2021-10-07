@@ -11,6 +11,8 @@ public class DirectionCommand
     public string direction;
     // Command to type to go that direction
     public string command;
+    // Cooldown after command
+    public float cooldown;
 }
 
 [System.Serializable]
@@ -20,6 +22,8 @@ public class Command
     public string commandName;
     // Command to type to go that direction
     public string command;
+    // Cooldown after command
+    public float cooldown;
 
     // Whether a command relies on a direction command or not to work
     public enum DirectionType 
@@ -29,13 +33,21 @@ public class Command
         Optional
     };
 
-    public DirectionType direction;
+    public DirectionType directionType;
 
 }
 
 public class PlayerCommands : MonoBehaviour
 {
-    [Header("Movement Commands")]
+    [Header("Settings")]
+
+    [SerializeField]
+    private bool blockDelete;
+
+    [SerializeField]
+    private float exitTypingStateCD;
+
+    [Header("Commands")]
 
     [SerializeField]
     private List<DirectionCommand> directionCommands;
@@ -48,7 +60,27 @@ public class PlayerCommands : MonoBehaviour
     [SerializeField]
     private TextMeshPro commandText;
 
+    [SerializeField]
+    private PlayerSlowmo playerSlowmo;
+
+    [SerializeField]
+    private PlayerCooldown playerCooldown;
+
+    [SerializeField]
+    private Color32 validCommandColor;
+
+    [SerializeField]
+    private Color32 unvalidCommandColor;
+
+    [Header("Command References")]
+
+    [SerializeField]
+    private CMDMovement cmdMovement;
+
     private List<string> currentCommand;
+
+    [System.NonSerialized]
+    public bool onCooldown;
 
     // Start is called before the first frame update
     void Start()
@@ -65,40 +97,75 @@ public class PlayerCommands : MonoBehaviour
     private void OnKeyPress(string key)
     { 
         // Add key to command
-        currentCommand.Add(key);
+        if (!onCooldown)
+            currentCommand.Add(key);
 
         // Update command text for player
+        CheckSlowmoState();
         UpdateCommandText();
     }
 
     private void OnCommandEnter() 
     {
-        List<string> commandList = GetCommands();
+        // Check for valid commands
+        DirectionCommand directionCommand = CheckValidDirectionCommand();
+        Command command = CheckValidCommand();
+        
+        // Did valid command, specifically a direction only command
+        if (directionCommand != null && GetCommands().Count == 1)
+        {
+            // Do command
+            cmdMovement.DoCommand(directionCommand);
 
-        // Do command
-        foreach (string command in commandList) {
-            Debug.Log(command);
+            // Apply cooldown
+            playerCooldown.ApplyCooldown(directionCommand.cooldown);
         }
+        // Did valid command
+        else if (command != null)
+        {
+            // Do command
+
+            // Apply cooldown
+            playerCooldown.ApplyCooldown(command.cooldown);
+        }
+        // Did unvalid command
+        else
+        {
+            // Apply cooldown
+            playerCooldown.ApplyCooldown(exitTypingStateCD);
+        }
+        
 
         // Clear command text
         currentCommand.Clear();
+        CheckSlowmoState();
         UpdateCommandText();
     }
 
     // Delete command, up till a space or nothing
     private void OnCommandDelete() 
     {
-        for (int i = currentCommand.Count-1; i >= 0; i--)
+        if (blockDelete)
         {
-            if (currentCommand[currentCommand.Count - 1] == " ")
+            // Delete by block
+            for (int i = currentCommand.Count - 1; i >= 0; i--)
             {
-                currentCommand.RemoveAt(currentCommand.Count - 1);
-                break;
-            }
+                if (currentCommand[currentCommand.Count - 1] == "_")
+                {
+                    currentCommand.RemoveAt(currentCommand.Count - 1);
+                    break;
+                }
 
-            currentCommand.RemoveAt(currentCommand.Count-1);
+                currentCommand.RemoveAt(currentCommand.Count - 1);
+            }
         }
-        
+        else 
+        {
+            // Delete normally
+            currentCommand.RemoveAt(currentCommand.Count - 1);
+        }
+
+        CheckSlowmoState();
         UpdateCommandText();
     }
 
@@ -116,6 +183,30 @@ public class PlayerCommands : MonoBehaviour
         return null;
     }
 
+    // Check if current command is valid
+    private Command CheckValidCommand()
+    {
+        // Check if there is a valid command
+        List<string> commandList = GetCommands();
+
+        foreach (string command in commandList) 
+        {
+            foreach (Command cmd in commands)
+            {
+                if (command == cmd.command) 
+                {
+                    if (((cmd.directionType == Command.DirectionType.MustInclude || cmd.directionType == Command.DirectionType.Optional) &&
+                        CheckValidDirectionCommand() != null) ||
+                        ((cmd.directionType == Command.DirectionType.MustNotInclude || cmd.directionType == Command.DirectionType.Optional) &&
+                        commandList.Count == 1))
+                        return cmd;
+                }
+            }
+        }
+
+        return null;
+    }
+
     // Return current typed commands
     private List<string> GetCommands() 
     {
@@ -125,7 +216,7 @@ public class PlayerCommands : MonoBehaviour
         string command = "";
         foreach (string letter in currentCommand)
         {
-            if (letter == " ")
+            if (letter == "_")
             {
                 commandList.Add(command);
                 command = "";
@@ -151,10 +242,19 @@ public class PlayerCommands : MonoBehaviour
         commandText.text = command;
 
         // Check if command is valid, changing text color
-        if (CheckValidDirectionCommand() != null)
-            commandText.color = new Color32(0, 255, 0, 150);
+        if (CheckValidCommand() != null || (CheckValidDirectionCommand() != null && GetCommands().Count == 1))
+            commandText.color = validCommandColor;
         else
-            commandText.color = new Color32(0, 0, 0, 150);
+            commandText.color = unvalidCommandColor;
+    }
+
+    // Check to enter slowmo state
+    private void CheckSlowmoState()
+    {
+        if (currentCommand.Count != 0)
+            playerSlowmo.EnterSlowmo();
+        else
+            playerSlowmo.ExitSlowmo();
     }
 
     // Get key input
@@ -172,7 +272,7 @@ public class PlayerCommands : MonoBehaviour
         }
 
         // Allow to input space
-        if (e.type == EventType.KeyDown && e.keyCode == KeyCode.Space) { OnKeyPress(" "); }
+        if (e.type == EventType.KeyDown && e.keyCode == KeyCode.Space) { OnKeyPress("_"); }
 
         // Delete command
         if (e.type == EventType.KeyDown && e.keyCode == KeyCode.Backspace) { OnCommandDelete(); }

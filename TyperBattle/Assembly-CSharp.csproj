@@ -57,6 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\PlayerCommands.cs" />
+    <Compile Include="Assets\Scripts\CMDMovement.cs" />
+    <Compile Include="Assets\Scripts\PlayerSlowmo.cs" />
+    <Compile Include="Assets\Scripts\PlayerCooldown.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
