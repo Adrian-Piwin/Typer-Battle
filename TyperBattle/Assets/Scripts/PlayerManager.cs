@@ -9,6 +9,7 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField]
     private int health;
+    private int startingHealth;
 
     [Header("References")]
 
@@ -22,7 +23,13 @@ public class PlayerManager : MonoBehaviour
     private PlayerCooldown playerCooldown;
 
     [SerializeField]
+    private UIHealth uiHealth;
+
+    [SerializeField]
     private Animator animator;
+
+    [SerializeField]
+    private Animator cameraAnimator;
 
     // Variables
     private bool isAttacking;
@@ -35,6 +42,8 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        startingHealth = health;
+
         if (transform.tag == "Player1")
             opponent = GameObject.FindWithTag("Player2").transform;
         else
@@ -59,7 +68,13 @@ public class PlayerManager : MonoBehaviour
     {
         // Take damage from opposing player
         health -= damage;
-        if (health <= 0) Die();
+        if (health < 0) health = 0;
+
+        // Update UI
+        uiHealth.TakeDamage((float)health / startingHealth);
+
+        // Die if health reaches 0
+        if (health == 0) Die();
 
         // Apply stun
         playerCooldown.ApplyCooldown(stunLength);
@@ -100,6 +115,9 @@ public class PlayerManager : MonoBehaviour
 
             // Play hit animation for enenmy
             enemyManager.PlayOneShotAnimation("Hit");
+
+            // Screenshake effect
+            cameraAnimator.Play("CameraShake");
 
             isAttacking = false;
         }
