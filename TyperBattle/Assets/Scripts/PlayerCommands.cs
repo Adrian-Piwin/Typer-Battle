@@ -40,6 +40,9 @@ public class PlayerCommands : MonoBehaviour
     [Header("Settings")]
 
     [SerializeField]
+    private bool isPlaying;
+
+    [SerializeField]
     private bool blockDelete;
 
     [SerializeField]
@@ -324,6 +327,7 @@ public class PlayerCommands : MonoBehaviour
     // Get key input
     void OnGUI()
     {
+        if (!isPlaying) return;
 
         Event e = Event.current;
 

@@ -9,6 +9,9 @@ public class CMDMovement : MonoBehaviour
     private Rigidbody2D body;
 
     [SerializeField]
+    private PlayerManager playerManager;
+
+    [SerializeField]
     private float timeScale;
 
     [SerializeField]
@@ -22,7 +25,7 @@ public class CMDMovement : MonoBehaviour
     private Vector2 curVelocity;
 
     // Movement
-    private bool isMoving;
+    [System.NonSerialized] public bool isMoving;
     private float curSpeed;
     private float curDistance;
     private Vector2 orgPosition;
@@ -40,7 +43,7 @@ public class CMDMovement : MonoBehaviour
                 body.velocity = curDirection * curSpeed;
 
             // Keep going until reaching max distance
-            if (Vector2.Distance(transform.position, orgPosition) > curDistance)
+            if (Vector2.Distance(transform.position, orgPosition) > curDistance || curDirection == Vector2.zero)
             {
                 isMoving = false;
                 body.velocity = Vector2.zero;
@@ -54,6 +57,7 @@ public class CMDMovement : MonoBehaviour
             // Slow mo during gravity
             body.velocity = curVelocity * timeScale;
         }
+
     }
 
     // Set up default movement
@@ -69,6 +73,7 @@ public class CMDMovement : MonoBehaviour
         {
             curDirection += GetDirection(cmd.direction);
         }
+        curDirection = curDirection.normalized;
 
         orgPosition = transform.position;
         isMoving = true;
@@ -87,6 +92,7 @@ public class CMDMovement : MonoBehaviour
         {
             curDirection += GetDirection(cmd.direction);
         }
+        curDirection = curDirection.normalized;
         
         orgPosition = transform.position;
         isMoving = true;
@@ -115,11 +121,11 @@ public class CMDMovement : MonoBehaviour
                 break;
 
             case "toward":
-                direction = (new Vector2(transform.position.x + 1, transform.position.y)) - (Vector2)transform.position;
+                direction = (Vector2)playerManager.opponent.position - (Vector2)transform.position;
                 break;
 
             case "away":
-                direction = (new Vector2(transform.position.x - 1, transform.position.y)) - (Vector2)transform.position;
+                direction = -1 * ((Vector2)playerManager.opponent.position - (Vector2)transform.position);
                 break;
         }
 

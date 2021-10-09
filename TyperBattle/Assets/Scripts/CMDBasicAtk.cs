@@ -23,7 +23,15 @@ public class CMDBasicAtk : MonoBehaviour
 
     // Damage delt to other player if successfully hit
     [SerializeField]
-    private float damage;
+    private int damage;
+
+    // Knockback to other player
+    [SerializeField]
+    private float knockBack;
+
+    // Stun length to other player
+    [SerializeField]
+    private float stunLength;
 
     [Header("References")]
 
@@ -31,17 +39,16 @@ public class CMDBasicAtk : MonoBehaviour
     private Rigidbody2D body;
 
     [SerializeField]
+    private PlayerManager playerManager;
+
+    [SerializeField]
     private CMDMovement cmdMovement;
 
     [SerializeField]
     private PlayerCooldown playerCooldown;
 
-    [SerializeField]
-    private Animator animator;
-
     // Variables
     private bool isCharging;
-    private bool isAttacking;
     private List<DirectionCommand> dirCommand;
     private Command command;
 
@@ -63,19 +70,20 @@ public class CMDBasicAtk : MonoBehaviour
     IEnumerator Attack() 
     {
         cmdMovement.DoCommand(dirCommand, speed, distance);
-        isAttacking = true;
+        playerManager.EnterAttackState(damage, stunLength);
         yield return new WaitForSeconds(attackTime);
-        isAttacking = false;
+        playerManager.ExitAttackState();
     }
 
     IEnumerator Charge() 
     {
         playerCooldown.ApplyCooldown(chargeTime + attackTime + command.cooldown);
         isCharging = true;
-        animator.SetBool("isSpinning", true);
+        playerManager.EnableAnimation("isSpinning", true);
         yield return new WaitForSeconds(chargeTime);
         isCharging = false;
-        animator.SetBool("isSpinning", false);
+        playerManager.EnableAnimation("isSpinning", false);
         StartCoroutine(Attack());
     }
+
 }
