@@ -8,9 +8,11 @@ using TMPro;
 public class DirectionCommand
 {
     // Direction to move
-    public string direction;
+    public string directionName;
     // Command to type to go that direction
     public string command;
+    // Direction to go
+    public Vector2 direction;
 }
 
 [System.Serializable]
@@ -31,7 +33,16 @@ public class Command
         Optional
     };
 
+    // Whether a command relies on to be grounded or not to work
+    public enum GroundedType
+    {
+        MustBeGrounded,
+        MustNotBeGrounded,
+        Optional
+    };
+
     public DirectionType directionType;
+    public GroundedType groundedType;
 
 }
 
@@ -48,6 +59,12 @@ public class PlayerCommands : MonoBehaviour
     [SerializeField]
     private float exitTypingStateCD;
 
+    [SerializeField]
+    private int typingCap;
+
+    [SerializeField]
+    private int commandCap;
+
     [Header("Commands")]
 
     [SerializeField]
@@ -57,6 +74,9 @@ public class PlayerCommands : MonoBehaviour
     private List<Command> commands;
 
     [Header("References")]
+
+    [SerializeField]
+    private PlayerManager playerManager;
 
     [SerializeField]
     private TextMeshPro commandText;
@@ -76,7 +96,13 @@ public class PlayerCommands : MonoBehaviour
     private CMDMovement cmdMovement;
 
     [SerializeField]
-    private CMDBasicAtk cmdBasicAtk;
+    private CMDLightAtk cmdLightAtk;
+
+    [SerializeField]
+    private CMDHeavyAtk cmdHeavyAtk;
+
+    [SerializeField]
+    private CMDSlideAtk cmdSlideAtk;
 
     private List<string> currentCommand;
 
@@ -89,14 +115,22 @@ public class PlayerCommands : MonoBehaviour
         currentCommand = new List<string>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnKeyPress(string key)
-    { 
+    {
+        // Check if hit key cap
+        if (currentCommand.Count >= typingCap) return;
+
+        // Check if hit command cap
+        if (key == "_") 
+        {
+            int i = 0;
+            foreach (string letter in currentCommand)
+            {
+                if (letter == "_") i++;
+            }
+            if (i >=  commandCap-1) return;
+        }
+
         // Add key to command
         if (!onCooldown)
             currentCommand.Add(key);
@@ -125,7 +159,15 @@ public class PlayerCommands : MonoBehaviour
             switch (command.commandName) 
             {
                 case "Light":
-                    cmdBasicAtk.DoCommand(directionCommand, command);
+                    cmdLightAtk.DoCommand(directionCommand, command);
+                    break;
+
+                case "Heavy":
+                    cmdHeavyAtk.DoCommand(directionCommand, command);
+                    break;
+
+                case "Slide":
+                    cmdSlideAtk.DoCommand(directionCommand, command);
                     break;
             }
 
@@ -232,14 +274,32 @@ public class PlayerCommands : MonoBehaviour
                 if (cmd == command.command) 
                 {
                     // Check if must include direction and direction is included
-                    if ((command.directionType == Command.DirectionType.MustInclude || command.directionType == Command.DirectionType.Optional) &&
-                        dirCommand != null)
-                        return 1;
+                    if ((command.directionType == Command.DirectionType.MustInclude ||
+                        command.directionType == Command.DirectionType.Optional) && dirCommand != null)
+                    {
+                        // Check if valid grounded state
+                        if (((command.groundedType == Command.GroundedType.MustBeGrounded ||
+                            command.groundedType == Command.GroundedType.Optional) && playerManager.isGrounded()) ||
+                            ((command.groundedType == Command.GroundedType.MustNotBeGrounded ||
+                            command.groundedType == Command.GroundedType.Optional) && !playerManager.isGrounded()))
+                        {
+                            return 1;
+                        }
+                    }
 
                     // Check if must not include direction and direction is not included
-                    else if ((command.directionType == Command.DirectionType.MustNotInclude || command.directionType == Command.DirectionType.Optional) &&
-                        dirCommand == null)
-                        return 1;
+                    else if ((command.directionType == Command.DirectionType.MustNotInclude ||
+                        command.directionType == Command.DirectionType.Optional) && dirCommand == null) 
+                    {
+                        // Check if valid grounded state
+                        if (((command.groundedType == Command.GroundedType.MustBeGrounded ||
+                            command.groundedType == Command.GroundedType.Optional) && playerManager.isGrounded()) ||
+                            ((command.groundedType == Command.GroundedType.MustNotBeGrounded ||
+                            command.groundedType == Command.GroundedType.Optional) && !playerManager.isGrounded()))
+                        {
+                            return 1;
+                        }
+                    }
                 }
             }
         }
@@ -262,11 +322,21 @@ public class PlayerCommands : MonoBehaviour
             {
                 if (cmd == command.command)
                 {
+                    // Check if valid direction state
                     if (((command.directionType == Command.DirectionType.MustInclude || command.directionType == Command.DirectionType.Optional) &&
                         GetValidDirectionCommand() != null) ||
                         ((command.directionType == Command.DirectionType.MustNotInclude || command.directionType == Command.DirectionType.Optional) &&
-                        commandList.Count == 1))
-                        return command;
+                        commandList.Count == 1)) 
+                    {
+                        // Check if valid grounded state
+                        if (((command.groundedType == Command.GroundedType.MustBeGrounded ||
+                            command.groundedType == Command.GroundedType.Optional) && playerManager.isGrounded()) ||
+                            ((command.groundedType == Command.GroundedType.MustNotBeGrounded ||
+                            command.groundedType == Command.GroundedType.Optional) && !playerManager.isGrounded())) 
+                        {
+                            return command;
+                        }
+                    }
                 }
             }
         }

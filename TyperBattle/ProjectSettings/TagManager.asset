@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Player2
   - Player1
+  - Player2 Healthbar
+  - Player1 Healthbar
   layers:
   - Default
   - TransparentFX
@@ -14,7 +16,7 @@ TagManager:
   - Water
   - UI
   - Post Processing
-  - 
+  - Ground
   - 
   - 
   - 
@@ -48,6 +50,9 @@ TagManager:
     locked: 0
   - name: Environment
     uniqueID: 3814406223
+    locked: 0
+  - name: LineRenderer
+    uniqueID: 4127324495
     locked: 0
   - name: Player
     uniqueID: 69438911

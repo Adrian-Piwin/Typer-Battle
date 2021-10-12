@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class CMDMovement : MonoBehaviour
 {
+    [Header("Settings")]
+
+    [SerializeField]
+    private float timeScale;
+
+    [SerializeField]
+    private float defaultForce = 10;
+
+    [Header("References")]
 
     [SerializeField]
     private Rigidbody2D body;
@@ -11,122 +20,59 @@ public class CMDMovement : MonoBehaviour
     [SerializeField]
     private PlayerManager playerManager;
 
-    [SerializeField]
-    private float timeScale;
-
-    [SerializeField]
-    private float defaultSpeed;
-
-    [SerializeField]
-    private float defaultDistance;
-
     // Slow mo
     private bool slowmoState;
     private Vector2 curVelocity;
 
-    // Movement
-    [System.NonSerialized] public bool isMoving;
-    private float curSpeed;
-    private float curDistance;
-    private Vector2 orgPosition;
-    private Vector2 curDirection;
-
     void FixedUpdate()
     {
-        if (isMoving)
+        if (slowmoState) 
         {
-            // Slow mo during command movement
-            if (slowmoState)
-                body.velocity = (curDirection * curSpeed) * timeScale;
-            else
-            // Non slow mo movement
-                body.velocity = curDirection * curSpeed;
-
-            // Keep going until reaching max distance
-            if (Vector2.Distance(transform.position, orgPosition) > curDistance || curDirection == Vector2.zero)
-            {
-                isMoving = false;
-                body.velocity = Vector2.zero;
-            }
-        }
-        else if (!isMoving && slowmoState) 
-        {
-            if (curVelocity == Vector2.zero)
-                curVelocity = body.velocity;
-
             // Slow mo during gravity
             body.velocity = curVelocity * timeScale;
         }
-
     }
 
     // Set up default movement
     public void DoCommand(List<DirectionCommand> dirCommand) 
     {
         body.velocity = Vector2.zero;
-        curSpeed = defaultSpeed;
-        curDistance = defaultDistance;
 
-        // Add all directions together
-        curDirection = Vector2.zero;
+        // Add force in all directions
         foreach (DirectionCommand cmd in dirCommand)
         {
-            curDirection += GetDirection(cmd.direction);
+            body.AddForce(GetDirection(cmd).normalized * defaultForce);
         }
-        curDirection = curDirection.normalized;
-
-        orgPosition = transform.position;
-        isMoving = true;
     }
 
     // Setup movement for other command
-    public void DoCommand(List<DirectionCommand> dirCommand, float speed, float distance)
+    public void DoCommand(List<DirectionCommand> dirCommand, float force)
     {
         body.velocity = Vector2.zero;
-        curSpeed = speed;
-        curDistance = distance;
 
-        // Add all directions together
-        curDirection = Vector2.zero;
-        foreach (DirectionCommand cmd in dirCommand) 
+        // Add force in all directions
+        foreach (DirectionCommand cmd in dirCommand)
         {
-            curDirection += GetDirection(cmd.direction);
+            body.AddForce(GetDirection(cmd).normalized * force);
         }
-        curDirection = curDirection.normalized;
-        
-        orgPosition = transform.position;
-        isMoving = true;
     }
 
     // Return direction from command
-    private Vector2 GetDirection(string dir) 
+    private Vector2 GetDirection(DirectionCommand dir) 
     {
-        Vector2 direction = Vector2.zero;
-        switch (dir) 
+        Vector2 direction;
+
+        if (dir.directionName == "toward")
         {
-            case "up":
-                direction = (new Vector2(transform.position.x, transform.position.y + 1)) - (Vector2)transform.position;
-                break;
-
-            case "down":
-                direction = (new Vector2(transform.position.x, transform.position.y - 1)) - (Vector2)transform.position;
-                break;
-
-            case "right":
-                direction = (new Vector2(transform.position.x + 1, transform.position.y)) - (Vector2)transform.position;
-                break;
-
-            case "left":
-                direction = (new Vector2(transform.position.x - 1, transform.position.y)) - (Vector2)transform.position;
-                break;
-
-            case "toward":
-                direction = (Vector2)playerManager.opponent.position - (Vector2)transform.position;
-                break;
-
-            case "away":
-                direction = -1 * ((Vector2)playerManager.opponent.position - (Vector2)transform.position);
-                break;
+            direction = (Vector2)playerManager.opponent.position - (Vector2)transform.position;
+        }
+        else if (dir.directionName == "away")
+        {
+            direction = -1 * (Vector2)playerManager.opponent.position - (Vector2)transform.position;
+        }
+        else 
+        {
+            direction = ((Vector2)transform.position + dir.direction) - (Vector2)transform.position;
         }
 
         return direction.normalized;
@@ -134,12 +80,13 @@ public class CMDMovement : MonoBehaviour
 
     public void EnterSlowmo()
     {
-        curVelocity = Vector2.zero;
+        curVelocity = body.velocity;
         slowmoState = true;
     }
 
     public void ExitSlowmo()
     {
+        body.velocity = curVelocity;
         slowmoState = false;
     }
 }

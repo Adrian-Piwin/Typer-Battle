@@ -11,6 +11,14 @@ public class PlayerManager : MonoBehaviour
     private int health;
     private int startingHealth;
 
+    [Header("Raycasting")]
+
+    [SerializeField]
+    private LayerMask groundLayer;
+
+    [SerializeField]
+    private float distanceFromGround;
+
     [Header("References")]
 
     [SerializeField]
@@ -20,10 +28,7 @@ public class PlayerManager : MonoBehaviour
     private CMDMovement cmdMovement;
 
     [SerializeField]
-    private PlayerCooldown playerCooldown;
-
-    [SerializeField]
-    private UIHealth uiHealth;
+    public PlayerCooldown playerCooldown;
 
     [SerializeField]
     private Animator animator;
@@ -32,9 +37,11 @@ public class PlayerManager : MonoBehaviour
     private Animator cameraAnimator;
 
     // Variables
-    private bool isAttacking;
-    private int damage;
-    private float stunLength;
+    public float timeSinceLastOppCollision;
+    [System.NonSerialized]
+    public bool isAttacking;
+
+    private UIHealth uiHealth;
 
     [System.NonSerialized]
     public Transform opponent;
@@ -42,42 +49,36 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Assign starting health
         startingHealth = health;
 
+        // Assign UI to player
+        uiHealth = GameObject.FindWithTag(transform.tag + " Healthbar").GetComponent<UIHealth>();
+
+        // Find opponent
         if (transform.tag == "Player1")
             opponent = GameObject.FindWithTag("Player2").transform;
         else
             opponent = GameObject.FindWithTag("Player1").transform;
     }
 
-    public void EnterAttackState(int damage, float stunLength) 
-    {
-        // Enter state in which a player can damage another player
-        this.damage = damage;
-        this.stunLength = stunLength;
-        isAttacking = true;
-    }
-
-    public void ExitAttackState() 
-    {
-        // Exit attack state
-        isAttacking = false;
-    }
-
-    public void TakeDamage(int damage, float stunLength) 
+    public void TakeDamage(int damage) 
     {
         // Take damage from opposing player
         health -= damage;
         if (health < 0) health = 0;
+
+        // Play hit animation for enenmy
+        opponent.GetComponent<PlayerManager>().PlayOneShotAnimation("Hit");
+
+        // Screenshake effect
+        cameraAnimator.Play("CameraShake");
 
         // Update UI
         uiHealth.TakeDamage((float)health / startingHealth);
 
         // Die if health reaches 0
         if (health == 0) Die();
-
-        // Apply stun
-        playerCooldown.ApplyCooldown(stunLength);
     }
 
     private void Die() 
@@ -100,33 +101,28 @@ public class PlayerManager : MonoBehaviour
         animator.SetBool(anim, enable);
     }
 
-    // On collision enter
+    public bool isGrounded() 
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, distanceFromGround, groundLayer);
+        if (hit != null) return true;
+        return false;
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Attacking enemy
-        if (isAttacking && collision.gameObject == opponent.gameObject) 
+        if (collision.gameObject == opponent.gameObject)
         {
-            PlayerManager enemyManager = collision.gameObject.GetComponent<PlayerManager>();
-            // Apply damage and stun
-            enemyManager.TakeDamage(damage, stunLength);
-
-            // Stop movement
-            cmdMovement.isMoving = false;
-
-            // Play hit animation for enenmy
-            enemyManager.PlayOneShotAnimation("Hit");
-
-            // Screenshake effect
-            cameraAnimator.Play("CameraShake");
-
-            isAttacking = false;
-        }
-
-        // Hit enemy without attacking
-        if (collision.gameObject == opponent.gameObject) 
-        {
-            // Stop movement
-            cmdMovement.isMoving = false;
+            timeSinceLastOppCollision = Time.time;
         }
     }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        // Attacking enemy
+        if (collision.gameObject == opponent.gameObject)
+        {
+            timeSinceLastOppCollision = Time.time;
+        }
+    }
+
 }
