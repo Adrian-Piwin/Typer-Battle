@@ -1215,6 +1215,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7201265084299420720, guid: 428ee34bdc4aa0742b6ffa8e0c8dd9ce, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7201265084299420720, guid: 428ee34bdc4aa0742b6ffa8e0c8dd9ce, type: 3}
+      propertyPath: m_Color.g
+      value: 0.48083812
+      objectReference: {fileID: 0}
+    - target: {fileID: 7201265084299420720, guid: 428ee34bdc4aa0742b6ffa8e0c8dd9ce, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7201265084556304573, guid: 428ee34bdc4aa0742b6ffa8e0c8dd9ce, type: 3}
       propertyPath: isPlaying
       value: 0
@@ -1225,7 +1237,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7201265085099378586, guid: 428ee34bdc4aa0742b6ffa8e0c8dd9ce, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.7
+      value: 1.99
       objectReference: {fileID: 0}
     - target: {fileID: 7201265085099378586, guid: 428ee34bdc4aa0742b6ffa8e0c8dd9ce, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1540,7 +1552,7 @@ GameObject:
   - component: {fileID: 1595354696}
   - component: {fileID: 1595354698}
   - component: {fileID: 1595354697}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1867,7 +1879,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7201265085099378586, guid: 428ee34bdc4aa0742b6ffa8e0c8dd9ce, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.93
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 7201265085099378586, guid: 428ee34bdc4aa0742b6ffa8e0c8dd9ce, type: 3}
       propertyPath: m_LocalPosition.y

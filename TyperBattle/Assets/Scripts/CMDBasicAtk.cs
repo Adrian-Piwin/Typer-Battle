@@ -68,7 +68,7 @@ public class CMDBasicAtk : MonoBehaviour
             body.velocity = Vector2.zero;
     }
 
-    public void DoCommand(List<DirectionCommand> dirCommand, Command command) 
+    virtual public void DoCommand(List<DirectionCommand> dirCommand, Command command) 
     {
         this.dirCommand = dirCommand;
         this.command = command;
@@ -84,11 +84,13 @@ public class CMDBasicAtk : MonoBehaviour
 
         // Check if player is hit within attack time
         float timer = 0.0f;
-        playerManager.isAttacking = true;
+
         while (timer < attackTime) 
         {
+            timer += Time.deltaTime;
+
             // Player hit
-            if (Time.time - playerManager.timeSinceLastOppCollision <= attackTime)
+            if (playerManager.hitOpponent)
             {
                 // Hit opponent within attack time
                 PlayerManager oppPlayerManager = opponent.GetComponent<PlayerManager>();
@@ -99,15 +101,12 @@ public class CMDBasicAtk : MonoBehaviour
                 oppPlayerManager.playerCooldown.ApplyCooldown(stunLength);
                 // Apply knockback
                 opponent.GetComponent<Rigidbody2D>().AddForce(knockback * knockbackDir);
-                
-                playerManager.isAttacking = false;
+
                 break;
             }
 
             yield return null;
         }
-
-        playerManager.isAttacking = false;
     }
 
     IEnumerator Charge() 
@@ -117,10 +116,10 @@ public class CMDBasicAtk : MonoBehaviour
 
         // Charge up and play charging animation
         isCharging = true;
-        playerManager.EnableAnimation("isSpinning", true);
+        playerManager.ToggleAnimation("isSpinning", true);
         yield return new WaitForSeconds(chargeTime);
         isCharging = false;
-        playerManager.EnableAnimation("isSpinning", false);
+        playerManager.ToggleAnimation("isSpinning", false);
 
         // Attack opponent
         StartCoroutine(Attack());

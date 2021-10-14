@@ -268,6 +268,7 @@ MonoBehaviour:
     directionType: 0
     groundedType: 0
   playerManager: {fileID: 7201265085099378591}
+  body: {fileID: 7201265085099378587}
   commandText: {fileID: 7201265085022482296}
   playerCooldown: {fileID: 7201265084148538118}
   validCommandColor:
@@ -310,11 +311,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 5
   chargeTime: 0.3
-  attackTime: 0.1
+  attackTime: 0.8
   force: 400
   knockback: 0
   knockbackDir: {x: 0, y: 0}
   stunLength: 0
+  dirRestrictions: {x: 0, y: 0}
 --- !u!114 &7894367166698561180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,11 +331,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   chargeTime: 0.6
-  attackTime: 0.1
+  attackTime: 0.8
   force: 400
   knockback: 0
   knockbackDir: {x: 0, y: 0}
   stunLength: 1
+  dirRestrictions: {x: 0, y: 0}
 --- !u!114 &5313721236420633355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,11 +351,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 2
   chargeTime: 0.1
-  attackTime: 0.1
+  attackTime: 0.8
   force: 400
   knockback: 300
   knockbackDir: {x: 0, y: 1}
   stunLength: 1
+  dirRestrictions: {x: 0, y: -1}
 --- !u!1 &7201265085022482298
 GameObject:
   m_ObjectHideFlags: 0
@@ -623,13 +627,11 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
-  distanceFromGround: 2
-  body: {fileID: 7201265085099378587}
-  cmdMovement: {fileID: 7201265084556304570}
+  distanceFromGround: 1
   playerCooldown: {fileID: 7201265084148538118}
   animator: {fileID: 7201265085099378584}
   cameraAnimator: {fileID: 0}
-  timeSinceLastOppCollision: 0
+  hitOpponent: 0
 --- !u!95 &7201265085099378584
 Animator:
   serializedVersion: 3

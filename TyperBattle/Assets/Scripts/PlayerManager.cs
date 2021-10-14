@@ -22,12 +22,6 @@ public class PlayerManager : MonoBehaviour
     [Header("References")]
 
     [SerializeField]
-    private Rigidbody2D body;
-
-    [SerializeField]
-    private CMDMovement cmdMovement;
-
-    [SerializeField]
     public PlayerCooldown playerCooldown;
 
     [SerializeField]
@@ -36,15 +30,15 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]
     private Animator cameraAnimator;
 
-    // Variables
-    public float timeSinceLastOppCollision;
-    [System.NonSerialized]
-    public bool isAttacking;
-
+    // Health UI
     private UIHealth uiHealth;
 
+    // Opponent
     [System.NonSerialized]
     public Transform opponent;
+
+    // Collision with opponent
+    public bool hitOpponent;
 
     // Start is called before the first frame update
     void Start()
@@ -62,6 +56,7 @@ public class PlayerManager : MonoBehaviour
             opponent = GameObject.FindWithTag("Player1").transform;
     }
 
+    // Take damage from opponent, play any effects for taking damage
     public void TakeDamage(int damage) 
     {
         // Take damage from opposing player
@@ -81,11 +76,13 @@ public class PlayerManager : MonoBehaviour
         if (health == 0) Die();
     }
 
+    // Player dies
     private void Die() 
     {
         Debug.Log("ded");
     }
 
+    // Play animation once
     public void PlayOneShotAnimation(string anim) 
     {
         switch (anim) 
@@ -96,32 +93,33 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public void EnableAnimation(string anim, bool enable) 
+    // Enable/Disable an animation indefinetly
+    public void ToggleAnimation(string anim, bool enable) 
     {
         animator.SetBool(anim, enable);
     }
 
-    public bool isGrounded() 
+    // Current grounded state
+    public bool IsGrounded() 
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, distanceFromGround, groundLayer);
-        if (hit != null) return true;
-        return false;
+        return Physics2D.Raycast(transform.position, Vector2.down, distanceFromGround, groundLayer);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Attacking enemy
+        // Enter collision with enemy
         if (collision.gameObject == opponent.gameObject)
         {
-            timeSinceLastOppCollision = Time.time;
+            hitOpponent = true;
         }
     }
-    private void OnCollisionStay2D(Collision2D collision)
+
+    private void OnCollisionExit2D(Collision2D collision)
     {
-        // Attacking enemy
+        // Exit collision with enemy
         if (collision.gameObject == opponent.gameObject)
         {
-            timeSinceLastOppCollision = Time.time;
+            hitOpponent = false;
         }
     }
 

@@ -79,6 +79,9 @@ public class PlayerCommands : MonoBehaviour
     private PlayerManager playerManager;
 
     [SerializeField]
+    private Rigidbody2D body;
+
+    [SerializeField]
     private TextMeshPro commandText;
 
     [SerializeField]
@@ -109,16 +112,36 @@ public class PlayerCommands : MonoBehaviour
     [System.NonSerialized]
     public bool onCooldown;
 
+    private bool isGrounded;
+    private bool typingState;
+    private Vector2 oldVelocity;
+
     // Start is called before the first frame update
     void Start()
     {
         currentCommand = new List<string>();
     }
 
+    private void Update()
+    {
+        // Update valid text on grounded variable change
+        if (isGrounded != playerManager.IsGrounded()) 
+        {
+            isGrounded = playerManager.IsGrounded();
+            UpdateCommandText();
+        }
+
+        // If in typing state
+        if (typingState)
+        {
+            body.velocity = Vector2.zero;
+        }
+    }
+
     private void OnKeyPress(string key)
     {
         // Check if hit key cap
-        if (currentCommand.Count >= typingCap) return;
+        if (currentCommand.Count >= typingCap || onCooldown) return;
 
         // Check if hit command cap
         if (key == "_") 
@@ -132,12 +155,13 @@ public class PlayerCommands : MonoBehaviour
         }
 
         // Add key to command
-        if (!onCooldown)
-            currentCommand.Add(key);
+        currentCommand.Add(key);
 
         // Update command text for player
-        CheckSlowmoState();
         UpdateCommandText();
+
+        // Update typing state
+        ToggleTypingState();
     }
 
     private void OnCommandEnter() 
@@ -181,8 +205,10 @@ public class PlayerCommands : MonoBehaviour
 
         // Clear command text
         currentCommand.Clear();
-        CheckSlowmoState();
         UpdateCommandText();
+
+        // Update typing state
+        ToggleTypingState();
     }
 
     // Delete command, up till a space or nothing
@@ -213,8 +239,11 @@ public class PlayerCommands : MonoBehaviour
         if (currentCommand.Count == 0)
             playerCooldown.ApplyCooldown(exitTypingStateCD);
 
-        CheckSlowmoState();
+        // Update text
         UpdateCommandText();
+
+        // Update typing state
+        ToggleTypingState();
     }
 
     // Get current command if valid
@@ -273,29 +302,17 @@ public class PlayerCommands : MonoBehaviour
             {
                 if (cmd == command.command) 
                 {
-                    // Check if must include direction and direction is included
-                    if ((command.directionType == Command.DirectionType.MustInclude ||
-                        command.directionType == Command.DirectionType.Optional) && dirCommand != null)
+                    // Check if direction is needed
+                    if (((command.directionType == Command.DirectionType.MustInclude ||
+                        command.directionType == Command.DirectionType.Optional) && dirCommand != null) ||
+                        ((command.directionType == Command.DirectionType.MustNotInclude ||
+                        command.directionType == Command.DirectionType.Optional) && dirCommand == null))
                     {
                         // Check if valid grounded state
                         if (((command.groundedType == Command.GroundedType.MustBeGrounded ||
-                            command.groundedType == Command.GroundedType.Optional) && playerManager.isGrounded()) ||
+                            command.groundedType == Command.GroundedType.Optional) && playerManager.IsGrounded()) ||
                             ((command.groundedType == Command.GroundedType.MustNotBeGrounded ||
-                            command.groundedType == Command.GroundedType.Optional) && !playerManager.isGrounded()))
-                        {
-                            return 1;
-                        }
-                    }
-
-                    // Check if must not include direction and direction is not included
-                    else if ((command.directionType == Command.DirectionType.MustNotInclude ||
-                        command.directionType == Command.DirectionType.Optional) && dirCommand == null) 
-                    {
-                        // Check if valid grounded state
-                        if (((command.groundedType == Command.GroundedType.MustBeGrounded ||
-                            command.groundedType == Command.GroundedType.Optional) && playerManager.isGrounded()) ||
-                            ((command.groundedType == Command.GroundedType.MustNotBeGrounded ||
-                            command.groundedType == Command.GroundedType.Optional) && !playerManager.isGrounded()))
+                            command.groundedType == Command.GroundedType.Optional) && !playerManager.IsGrounded()))
                         {
                             return 1;
                         }
@@ -330,9 +347,9 @@ public class PlayerCommands : MonoBehaviour
                     {
                         // Check if valid grounded state
                         if (((command.groundedType == Command.GroundedType.MustBeGrounded ||
-                            command.groundedType == Command.GroundedType.Optional) && playerManager.isGrounded()) ||
+                            command.groundedType == Command.GroundedType.Optional) && playerManager.IsGrounded()) ||
                             ((command.groundedType == Command.GroundedType.MustNotBeGrounded ||
-                            command.groundedType == Command.GroundedType.Optional) && !playerManager.isGrounded())) 
+                            command.groundedType == Command.GroundedType.Optional) && !playerManager.IsGrounded())) 
                         {
                             return command;
                         }
@@ -385,13 +402,23 @@ public class PlayerCommands : MonoBehaviour
             commandText.color = unvalidCommandColor;
     }
 
-    // Check to enter slowmo state
-    private void CheckSlowmoState()
+    // Enter a non moving state when the player is typing
+    private void ToggleTypingState() 
     {
-        if (currentCommand.Count != 0)
-            cmdMovement.EnterSlowmo();
-        else
-            cmdMovement.ExitSlowmo();
+        if (currentCommand.Count > 0)
+        {
+            // Enter typing state
+            typingState = true;
+            oldVelocity = body.velocity;
+            body.gravityScale = 0;
+        }
+        else 
+        {
+            // Exit typing state
+            typingState = false;
+            body.velocity = oldVelocity;
+            body.gravityScale = 1;
+        }
     }
 
     // Get key input

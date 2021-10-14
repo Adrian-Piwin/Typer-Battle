@@ -20,19 +20,6 @@ public class CMDMovement : MonoBehaviour
     [SerializeField]
     private PlayerManager playerManager;
 
-    // Slow mo
-    private bool slowmoState;
-    private Vector2 curVelocity;
-
-    void FixedUpdate()
-    {
-        if (slowmoState) 
-        {
-            // Slow mo during gravity
-            body.velocity = curVelocity * timeScale;
-        }
-    }
-
     // Set up default movement
     public void DoCommand(List<DirectionCommand> dirCommand) 
     {
@@ -76,17 +63,5 @@ public class CMDMovement : MonoBehaviour
         }
 
         return direction.normalized;
-    }
-
-    public void EnterSlowmo()
-    {
-        curVelocity = body.velocity;
-        slowmoState = true;
-    }
-
-    public void ExitSlowmo()
-    {
-        body.velocity = curVelocity;
-        slowmoState = false;
     }
 }
