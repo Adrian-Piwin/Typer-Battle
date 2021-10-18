@@ -47,21 +47,7 @@ public class CMDMovement : MonoBehaviour
     // Return direction from command
     private Vector2 GetDirection(DirectionCommand dir) 
     {
-        Vector2 direction;
-
-        if (dir.directionName == "toward")
-        {
-            direction = (Vector2)playerManager.opponent.position - (Vector2)transform.position;
-        }
-        else if (dir.directionName == "away")
-        {
-            direction = -1 * (Vector2)playerManager.opponent.position - (Vector2)transform.position;
-        }
-        else 
-        {
-            direction = ((Vector2)transform.position + dir.direction) - (Vector2)transform.position;
-        }
-
+        Vector2 direction = ((Vector2)transform.position + dir.direction) - (Vector2)transform.position;
         return direction.normalized;
     }
 }

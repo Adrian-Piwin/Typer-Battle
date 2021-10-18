@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class PlayerCooldown : MonoBehaviour
 {
-    [SerializeField]
-    private PlayerCommands playerCommands;
 
     [SerializeField]
     private Transform cooldownIndicator;
 
     [SerializeField]
     private float startingIndicatorSize;
+
+    private PlayerCommands playerCommands;
+
+    private void Start()
+    {
+        playerCommands = GetComponent<PlayerCommands>();
+    }
 
     public void ApplyCooldown(float time) 
     {
@@ -21,7 +26,7 @@ public class PlayerCooldown : MonoBehaviour
 
     private IEnumerator ScaleToTargetCoroutine(Vector2 targetScale, float duration)
     {
-        Vector2 startScale = new Vector2(startingIndicatorSize, transform.localScale.y);
+        Vector2 startScale = new Vector2(startingIndicatorSize, cooldownIndicator.localScale.y);
         float timer = 0.0f;
 
         while (timer < duration)

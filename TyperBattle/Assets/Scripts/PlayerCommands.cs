@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Mirror;
 
 // Command classes
 [System.Serializable]
@@ -46,12 +47,9 @@ public class Command
 
 }
 
-public class PlayerCommands : MonoBehaviour
+public class PlayerCommands : NetworkBehaviour
 {
     [Header("Settings")]
-
-    [SerializeField]
-    private bool isPlaying;
 
     [SerializeField]
     private bool blockDelete;
@@ -76,16 +74,7 @@ public class PlayerCommands : MonoBehaviour
     [Header("References")]
 
     [SerializeField]
-    private PlayerManager playerManager;
-
-    [SerializeField]
-    private Rigidbody2D body;
-
-    [SerializeField]
     private TextMeshPro commandText;
-
-    [SerializeField]
-    private PlayerCooldown playerCooldown;
 
     [SerializeField]
     private Color32 validCommandColor;
@@ -107,6 +96,13 @@ public class PlayerCommands : MonoBehaviour
     [SerializeField]
     private CMDSlideAtk cmdSlideAtk;
 
+    // References
+    private PlayerManager playerManager;
+    private Rigidbody2D body;
+    private PlayerCooldown playerCooldown;
+
+    // Variables
+
     private List<string> currentCommand;
 
     [System.NonSerialized]
@@ -124,6 +120,10 @@ public class PlayerCommands : MonoBehaviour
 
     private void Update()
     {
+        playerManager = GetComponent<PlayerManager>();
+        playerCooldown = GetComponent<PlayerCooldown>();
+        body = GetComponent<Rigidbody2D>();
+
         // Update valid text on grounded variable change
         if (isGrounded != playerManager.IsGrounded()) 
         {
@@ -422,9 +422,10 @@ public class PlayerCommands : MonoBehaviour
     }
 
     // Get key input
+    [Client]
     void OnGUI()
     {
-        if (!isPlaying) return;
+        if (!hasAuthority) return;
 
         Event e = Event.current;
 

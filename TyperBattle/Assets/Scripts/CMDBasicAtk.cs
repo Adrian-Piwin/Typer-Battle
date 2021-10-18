@@ -36,13 +36,13 @@ public class CMDBasicAtk : MonoBehaviour
 
     // References
     private Rigidbody2D body;
-    private Transform opponent;
     private PlayerManager playerManager;
     private CMDMovement cmdMovement;
     private PlayerCooldown playerCooldown;
 
     // Variables
     private bool isCharging;
+    private bool isAttacking;
     private List<DirectionCommand> dirCommand;
     private Command command;
 
@@ -51,13 +51,7 @@ public class CMDBasicAtk : MonoBehaviour
         body = transform.parent.GetComponent<Rigidbody2D>();
         playerManager = transform.parent.GetComponent<PlayerManager>();
         cmdMovement = transform.GetComponent<CMDMovement>();
-        playerCooldown = transform.parent.GetChild(1).GetComponent<PlayerCooldown>();
-
-        // Find opponent
-        if (transform.parent.tag == "Player1")
-            opponent = GameObject.FindWithTag("Player2").transform;
-        else
-            opponent = GameObject.FindWithTag("Player1").transform;
+        playerCooldown = transform.parent.GetComponent<PlayerCooldown>();
     }
 
     // Update is called once per frame
@@ -83,30 +77,9 @@ public class CMDBasicAtk : MonoBehaviour
             cmdMovement.DoCommand(dirCommand, force);
 
         // Check if player is hit within attack time
-        float timer = 0.0f;
-
-        while (timer < attackTime) 
-        {
-            timer += Time.deltaTime;
-
-            // Player hit
-            if (playerManager.hitOpponent)
-            {
-                // Hit opponent within attack time
-                PlayerManager oppPlayerManager = opponent.GetComponent<PlayerManager>();
-
-                // Give damage
-                oppPlayerManager.TakeDamage(damage);
-                // Apply stun
-                oppPlayerManager.playerCooldown.ApplyCooldown(stunLength);
-                // Apply knockback
-                opponent.GetComponent<Rigidbody2D>().AddForce(knockback * knockbackDir);
-
-                break;
-            }
-
-            yield return null;
-        }
+        isAttacking = true;
+        yield return new WaitForSeconds(attackTime);
+        isAttacking = false;
     }
 
     IEnumerator Charge() 
@@ -123,6 +96,22 @@ public class CMDBasicAtk : MonoBehaviour
 
         // Attack opponent
         StartCoroutine(Attack());
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Hit enemy while attacking
+        if (collision.gameObject.tag == "player" && isAttacking)
+        {
+            // Give damage
+            collision.gameObject.GetComponent<PlayerManager>().TakeDamage(damage);
+            // Apply stun
+            collision.gameObject.GetComponent<PlayerCooldown>().ApplyCooldown(stunLength);
+            // Apply knockback
+            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(knockback * knockbackDir);
+
+            isAttacking = false;
+        }
     }
 
 }

@@ -19,41 +19,30 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]
     private float distanceFromGround;
 
-    [Header("References")]
+    // References
 
-    [SerializeField]
-    public PlayerCooldown playerCooldown;
-
-    [SerializeField]
+    // Player animator
     private Animator animator;
 
-    [SerializeField]
+    // Camera animator
     private Animator cameraAnimator;
 
     // Health UI
     private UIHealth uiHealth;
 
-    // Opponent
-    [System.NonSerialized]
-    public Transform opponent;
-
-    // Collision with opponent
-    public bool hitOpponent;
-
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
+
+        // Assign camera animator
+        cameraAnimator = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Animator>();
+
         // Assign starting health
         startingHealth = health;
 
         // Assign UI to player
         uiHealth = GameObject.FindWithTag(transform.tag + " Healthbar").GetComponent<UIHealth>();
-
-        // Find opponent
-        if (transform.tag == "Player1")
-            opponent = GameObject.FindWithTag("Player2").transform;
-        else
-            opponent = GameObject.FindWithTag("Player1").transform;
     }
 
     // Take damage from opponent, play any effects for taking damage
@@ -64,7 +53,7 @@ public class PlayerManager : MonoBehaviour
         if (health < 0) health = 0;
 
         // Play hit animation for enenmy
-        opponent.GetComponent<PlayerManager>().PlayOneShotAnimation("Hit");
+        PlayOneShotAnimation("Hit");
 
         // Screenshake effect
         cameraAnimator.Play("CameraShake");
@@ -103,24 +92,6 @@ public class PlayerManager : MonoBehaviour
     public bool IsGrounded() 
     {
         return Physics2D.Raycast(transform.position, Vector2.down, distanceFromGround, groundLayer);
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        // Enter collision with enemy
-        if (collision.gameObject == opponent.gameObject)
-        {
-            hitOpponent = true;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        // Exit collision with enemy
-        if (collision.gameObject == opponent.gameObject)
-        {
-            hitOpponent = false;
-        }
     }
 
 }
