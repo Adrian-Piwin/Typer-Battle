@@ -1,4 +1,186 @@
+# Starting compiling UnityEngine.TestRunner.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-a43758b0835d4f34bafc3e18e5b3a4ff
+# Starting compiling UnityEngine.UI.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-42fc374b9b5f81649ad0364b3622e15b
+# Starting compiling UnityEditor.TestRunner.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-740eb872d1087d449813f1bd0c508feb
+# Starting compiling UnityEditor.UI.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-db0a6e4866a878e4ba6a5d4f9114d638
+# Starting compiling Unity.InternalAPIEngineBridge.001.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-700a450c06c0e5b43ac71d091c660164
+# Starting compiling Unity.VSCode.Editor.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-0f0ca84431cd6294eb498c48b7aa5f4a
+# Starting compiling Unity.2D.PixelPerfect.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-3f9ccf78ed3764d4caffb42aa4fca27c
+# Starting compiling Unity.2D.Tilemap.Editor.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-4dad05b6a9e1ebb4da5f4d3124a2363b
+# Starting compiling PsdPlugin.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-b613498565e24a84f84a642e9821b592
+# Starting compiling Unity.VisualStudio.Editor.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-5a25fcb0b4099014eab50e1a04e8b30f
+# Starting compiling Unity.Timeline.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-76c0170282833dd42ab79319a564b413
+# Starting compiling Unity.TextMeshPro.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-4cdd876c8e464104e95dad063d79ebe7
+# Starting compiling Unity.2D.Sprite.Editor.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-8c74bf4866acfd54f8121ee41b0c93d6
+# Starting compiling Unity.2D.Path.Editor.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-945e90e032a25b44487664d455118d7b
+# Starting compiling Unity.Rider.Editor.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-b9fb089e5bac8aa4782d894fd6fda041
+# Starting compiling Unity.Mathematics.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-36e0b9566d0887b429ca0fa7317032e9
+# Starting compiling Unity.2D.IK.Runtime.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-7f79f4e637564c7498ae134baf6a837a
+# Starting compiling Unity.Postprocessing.Runtime.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-a6d6df48fdd4ab84f983fd6a5604a03b
+# Starting compiling Unity.2D.Animation.Triangle.Runtime.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-87b2fd42e4df4814bbab77da76ca03ef
+# Starting compiling Unity.CollabProxy.Editor.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-c33f91d87da2cca47a4308deea236fa8
+# Starting compiling Unity.2D.Common.Runtime.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-b5836cfbbe3fd4041b8ee714510b835c
+# Starting compiling Unity.2D.PixelPerfect.Editor.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-ec706973e87307e4a85a906aabda7d1b
+# Starting compiling Mirror.CompilerSymbols.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-a259e0516c749294ab94e5dd0f123b1d
+# Starting compiling Telepathy.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-29e253d1178fb9a40987a64294c06c9b
+# Starting compiling where-allocations.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-789855bc3d90b5d40ace9f75edc48593
+# Starting compiling ParrelSync.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-dda80f1a979bd4d4393e17c9548eaecd
+# Starting compiling Unity.InternalAPIEditorBridge.001.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-f499c1fe749d6954bb51ebb2199daaca
+# Starting compiling Unity.Timeline.Editor.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-5b4bfea374eca4943b987d687a9b4976
+# Starting compiling Unity.2D.Common.Editor.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-2bcddb191688ea24fac2151cf854169b
+# Starting compiling Unity.Postprocessing.Editor.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-67933e93a68e7264b9d105eb6c58335f
+# Starting compiling kcp2k.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-921262ec9218bb5469d7b61fd0b3391c
+# Starting compiling Unity.TextMeshPro.Editor.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-61da990a694007748bb4ff38f15a2c31
+# Starting compiling Mirror.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-7c5623bc7ab944a499b9b5ab432ed40d
+# Starting compiling Unity.Mirror.CodeGen.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-c6e655affd4461141bd8e2cacfde9292
+# Starting compiling Mirror.Authenticators.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-48be480e441ea084b958a9c18ec25db5
+# Starting compiling SimpleWebTransport.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-3a7934e2d19926d4fbdf6759939a3121
+# Starting compiling Mirror.Components.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-951f275ef5b0d98469107c9ff2903f41
+# Starting compiling Unity.2D.Animation.Runtime.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-38ae4a5dece449641a2a1aeaf5e6a910
+# Starting compiling Unity.Mathematics.Editor.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-d046201ed3e23634481e6fe8f4c848f0
+# Starting compiling Unity.2D.SpriteShape.Runtime.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-f1f9e73528b5541488a3fbb2d8deafad
+# Starting compiling Mirror.Examples.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-1c54a75fb4c0ba74185ce1b4caf2ac51
+# Starting compiling Mirror.Editor.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-6829cd7dd29187e40811498d43aefa16
+# Starting IL post processing on UnityEngine.TestRunner.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-a64a0dee2a0937c4394e5b23ee9b6ac0"
+# Starting compiling Unity.2D.Animation.Editor.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-15de6e55079e4504783842597951d2c5
+# Starting compiling Unity.2D.SpriteShape.Editor.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-5e4ab08d574750049bd7a88b5088ad37
+# Starting IL post processing on UnityEngine.UI.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-5724dff85c891804cb6fcdaa75a0673a"
+# Starting IL post processing on UnityEditor.TestRunner.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-10596595b7404f14091b9bdac4f68397"
+# Starting IL post processing on UnityEditor.UI.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-2f075f13c46dca246afafe0c6a39e976"
+# Starting IL post processing on Unity.InternalAPIEngineBridge.001.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-1dfb2f3740da5a241ba3ac502dd949cc"
+# Starting IL post processing on Unity.VSCode.Editor.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-c6e583f0383d2ad418e48b7a8edb08b6"
+# Starting IL post processing on Unity.2D.PixelPerfect.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-2bea5e3111d78f248b91ec01754cdbcd"
+# Starting IL post processing on Unity.2D.IK.Runtime.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-f9827a07e15f2904887c3afcf2bc577c"
+# Starting IL post processing on PsdPlugin.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-5faf5c7cb4cc8dd4aba97afad2b3cc45"
+# Starting IL post processing on Unity.VisualStudio.Editor.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-070015dd28c124541999a952b37e6f0c"
+# Starting IL post processing on Unity.2D.Tilemap.Editor.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-1a81d1349096ba84ab1c07fc7dbee8bb"
+# Starting IL post processing on Unity.2D.Sprite.Editor.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-3d46542c8abfffc4b9e2d432f3eacc0f"
+# Starting IL post processing on Unity.2D.Path.Editor.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-ab067f4662c137c46be33d9507b0daca"
+# Starting IL post processing on Unity.Timeline.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-75c3580748ce3e04d868ec11c37d6ca8"
+# Starting IL post processing on Unity.Rider.Editor.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-bacd16cb7e841304db7d986f54a38349"
+# Starting IL post processing on Unity.2D.Animation.Triangle.Runtime.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-d2b42346ab1ccb34fbf25df00dd0d746"
+# Starting compiling Unity.2D.IK.Editor.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-45356547c3d626c468b0bf92656f7673
+# Starting compiling Unity.2D.Psdimporter.Editor.dll
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-41f11a3a8ee457749aa7de7c80548f23
+# Starting IL post processing on Unity.2D.Common.Runtime.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-1389fb17ca17ccd43877eacbae82f1d5"
+# Starting IL post processing on Unity.Postprocessing.Runtime.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-814c993678a3cf34384778d547ea7018"
+# Starting IL post processing on Mirror.CompilerSymbols.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-a51de1b0a7c5c3a40b1042ead4d1aa10"
+# Starting IL post processing on Unity.2D.PixelPerfect.Editor.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-e69bf2319efd8d54c8e33561118796c1"
+# Starting IL post processing on ParrelSync.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-d9f2fe89f08cb1c4bb62107a8183740a"
+# Starting IL post processing on where-allocations.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-93ffefeeff4088b4091c61879b4bfe20"
+# Starting IL post processing on Telepathy.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-1cf77a9b8e0f8da4fa03d19708eefac9"
+# Starting IL post processing on Unity.CollabProxy.Editor.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-299ca71859263294a993cdc26b220d0c"
+# Starting IL post processing on Unity.TextMeshPro.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-fe37bc5162e5fa04dbb6defbdca24a15"
+# Starting IL post processing on Unity.InternalAPIEditorBridge.001.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-3dc0e87e87ef364459031263a9f126ed"
+# Starting IL post processing on Unity.2D.Common.Editor.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-ab531c93685cff74cb8ef9973f0406f4"
+# Starting IL post processing on kcp2k.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-5f560de3fb22ad74dad00124a075f7da"
+# Starting IL post processing on Unity.Postprocessing.Editor.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-47ad6ecc3dbb1e247819eb359e58391d"
+# Starting IL post processing on Unity.TextMeshPro.Editor.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-40051c85b5bdfcb48af29b4381941de3"
+# Starting IL post processing on Unity.Timeline.Editor.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-4a84c82823a3e814e8bd20a9b47c018c"
+# Starting IL post processing on Mirror.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-ff53386385358de4ca314a576ea9390c"
+# Starting IL post processing on Mirror.Authenticators.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-e687c183cdb421b439c0eb12e2e75cb5"
+# Starting IL post processing on Unity.Mathematics.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-be38168333acecc4e8377101acc7a98d"
+# Starting IL post processing on SimpleWebTransport.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-ab4318ed57718aa47aa53dadb995dbb6"
+# Starting IL post processing on Mirror.Components.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-e4136614ba6f65a4e971e57f19c24f19"
+# Starting IL post processing on Unity.Mathematics.Editor.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-bf427758e6738b94c89443c90f8badf7"
+# Starting IL post processing on Mirror.Editor.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-fa563a760087f0d4ab0ee23f9edb5af6"
+# Starting IL post processing on Unity.2D.Animation.Runtime.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-e9d670c939256bf4bb709e2759c24101"
+# Starting IL post processing on Mirror.Examples.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-f129bbe7339a375438487e00b79915d7"
+# Starting IL post processing on Unity.2D.SpriteShape.Runtime.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-0759d64522e00b74f98059daa3233724"
 # Starting compiling Assembly-CSharp.dll
-C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-814957cc5bdd5a7479a369efc9eb6ab6
+C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-8fc4298ccb5f27044b73b11e59607a37
+# Starting IL post processing on Unity.2D.SpriteShape.Editor.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-d4e07022f2891a048b0d29919e55074d"
+# Starting IL post processing on Unity.2D.Animation.Editor.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-1eb96f19703d1c948825afed01cdb9a1"
+# Starting IL post processing on Unity.2D.IK.Editor.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-bf48066cc58c6104ea5453edaf99d6d2"
+# Starting IL post processing on Unity.2D.Psdimporter.Editor.dll
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-31561d7b05d6e2e45a4928771a1e5de2"
 # Starting IL post processing on Assembly-CSharp.dll
-"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-9d8913c7ca496864dab39c6a031cd0c7"
+"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle/Temp/UnityTempFile-a10bffa2ce8c7a4459f59839370e0b2c"
