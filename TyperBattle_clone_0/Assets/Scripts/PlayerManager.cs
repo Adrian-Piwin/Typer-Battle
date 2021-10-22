@@ -31,10 +31,15 @@ public class PlayerManager : NetworkBehaviour
     // Health UI
     private UIHealth uiHealth;
 
+    private PlayerCommands playerCommands;
+    private TimeManager timeManager;
+
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        playerCommands = GetComponent<PlayerCommands>();
+        timeManager = GameObject.FindGameObjectWithTag("Time Manager").GetComponent<TimeManager>();
 
         // Assign camera animator
         cameraAnimator = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Animator>();
@@ -73,8 +78,14 @@ public class PlayerManager : NetworkBehaviour
         health -= damage;
         if (health < 0) health = 0;
 
+        // Stop typing when hit
+        playerCommands.ClearCommand();
+
         // Screenshake effect
         cameraAnimator.Play("CameraShake");
+
+        // Slow motion
+        timeManager.DoSlowmotion();
 
         // Update UI
         uiHealth.TakeDamage((float)health / startingHealth);

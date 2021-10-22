@@ -1,14 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
 
-public class CMDMovement : NetworkBehaviour
+public class CMDMovement : MonoBehaviour
 {
     [Header("Settings")]
-
-    [SerializeField]
-    private float timeScale;
 
     [SerializeField]
     private float defaultForce = 10;
@@ -18,10 +14,15 @@ public class CMDMovement : NetworkBehaviour
     [SerializeField]
     private Rigidbody2D body;
 
-    [SerializeField]
-    private PlayerManager playerManager;
-
     private Vector2 oldVel;
+
+    private bool isFrozen;
+
+    private void Update() 
+    {
+        if (isFrozen)
+            body.velocity = Vector2.zero;
+    }
 
     // Set up movement
     public void DoCommand(List<DirectionCommand> dirCommand, float force) 
@@ -53,6 +54,8 @@ public class CMDMovement : NetworkBehaviour
             body.gravityScale = 1f;
             body.velocity = oldVel;
         }
+
+        this.isFrozen = isFrozen;
     }
 
     // Return direction from command

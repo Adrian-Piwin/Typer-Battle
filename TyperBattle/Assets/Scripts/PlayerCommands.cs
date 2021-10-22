@@ -17,14 +17,12 @@ public class DirectionCommand
 }
 
 [System.Serializable]
-public class Command
+public class AttackCommand
 {
     // Name of command 
     public string commandName;
-    // Command to type to go that direction
+    // Command to type to do command
     public string command;
-    // Cooldown after command
-    public float cooldown;
 
     // Whether a command relies on a direction command or not to work
     public enum DirectionType 
@@ -35,6 +33,9 @@ public class Command
     };
 
     public DirectionType directionType;
+
+    [System.NonSerialized]
+    public CMDAttack attackScript;
 }
 
 public class PlayerCommands : NetworkBehaviour
@@ -59,7 +60,10 @@ public class PlayerCommands : NetworkBehaviour
     private List<DirectionCommand> directionCommands;
 
     [SerializeField]
-    private List<Command> commands;
+    private CMDMovement cmdMovement;
+
+    [SerializeField]
+    private List<AttackCommand> commands;
 
     [Header("References")]
 
@@ -69,34 +73,28 @@ public class PlayerCommands : NetworkBehaviour
     [SerializeField]
     private Color32 unvalidCommandColor;
 
-    [Header("Command References")]
-
-    [SerializeField]
-    private CMDMovement cmdMovement;
-
-    [SerializeField]
-    private CMDLightAtk cmdLightAtk;
-
-    [SerializeField]
-    private CMDHeavyAtk cmdHeavyAtk;
-
-    [SerializeField]
-    private CMDSlideAtk cmdSlideAtk;
-
     // References
     private PlayerCooldown playerCooldown;
     private TextMeshPro commandText;
 
     // Variables
-
     private List<string> currentCommand;
-
-    [System.NonSerialized]
-    public bool onCooldown;
+    [System.NonSerialized] public bool onCooldown;
 
     // Start is called before the first frame update
     void Start()
     {
+        // Assign scripts to their commands
+        CMDAttack[] atkScripts = transform.GetChild(1).GetComponents<CMDAttack>();
+        foreach (AttackCommand atkCmd in commands) 
+        {
+            foreach (CMDAttack atkScript in atkScripts) 
+            {
+                if (atkScript.commandName == atkCmd.commandName)
+                    atkCmd.attackScript = atkScript;
+            }
+        }
+
         currentCommand = new List<string>();
     }
 
@@ -112,14 +110,14 @@ public class PlayerCommands : NetworkBehaviour
         if (currentCommand.Count >= typingCap || onCooldown) return;
 
         // Check if hit command cap
-        if (key == "_") 
+        if (key == "_")
         {
             int i = 0;
             foreach (string letter in currentCommand)
             {
                 if (letter == "_") i++;
             }
-            if (i >=  commandCap-1) return;
+            if (i >= commandCap - 1) return;
         }
 
         // Add key to command
@@ -132,12 +130,12 @@ public class PlayerCommands : NetworkBehaviour
         ToggleTypingState();
     }
 
-    private void OnCommandEnter() 
+    private void OnCommandEnter()
     {
         // Check for valid commands
         List<DirectionCommand> directionCommand = GetValidDirectionCommand();
-        Command command = GetValidCommand();
-        
+        AttackCommand command = GetValidCommand();
+
         // Did valid command, specifically a direction only command
         if (directionCommand != null && CheckValidCommand() == 0)
         {
@@ -148,19 +146,12 @@ public class PlayerCommands : NetworkBehaviour
         else if (command != null)
         {
             // Do command
-            switch (command.commandName) 
+            foreach (AttackCommand cmd in commands) 
             {
-                case "Light":
-                    cmdLightAtk.DoCommand(directionCommand, command);
-                    break;
-
-                case "Heavy":
-                    cmdHeavyAtk.DoCommand(directionCommand, command);
-                    break;
-
-                case "Slide":
-                    cmdSlideAtk.DoCommand(directionCommand, command);
-                    break;
+                if (cmd.commandName == command.commandName) 
+                {
+                    cmd.attackScript.DoCommand(directionCommand);
+                }
             }
         }
         // Did unvalid command
@@ -179,7 +170,7 @@ public class PlayerCommands : NetworkBehaviour
     }
 
     // Delete command, up till a space or nothing
-    private void OnCommandDelete() 
+    private void OnCommandDelete()
     {
         if (blockDelete)
         {
@@ -195,7 +186,7 @@ public class PlayerCommands : NetworkBehaviour
                 currentCommand.RemoveAt(currentCommand.Count - 1);
             }
         }
-        else 
+        else
         {
             // Delete normally
             if (currentCommand.Count != 0)
@@ -207,6 +198,17 @@ public class PlayerCommands : NetworkBehaviour
             playerCooldown.ApplyCooldown(exitTypingStateCD);
 
         // Update text
+        UpdateCommandText();
+
+        // Update typing state
+        ToggleTypingState();
+    }
+
+    // Clear command
+    public void ClearCommand() 
+    {
+        // Clear command text
+        currentCommand.Clear();
         UpdateCommandText();
 
         // Update typing state
@@ -265,15 +267,15 @@ public class PlayerCommands : NetworkBehaviour
         // Check if command is valid
         foreach (string cmd in commandList) 
         {
-            foreach (Command command in commands)
+            foreach (AttackCommand command in commands)
             {
                 if (cmd == command.command) 
                 {
                     // Check if direction is needed
-                    if (((command.directionType == Command.DirectionType.MustInclude ||
-                        command.directionType == Command.DirectionType.Optional) && dirCommand != null) ||
-                        ((command.directionType == Command.DirectionType.MustNotInclude ||
-                        command.directionType == Command.DirectionType.Optional) && dirCommand == null))
+                    if (((command.directionType == AttackCommand.DirectionType.MustInclude ||
+                        command.directionType == AttackCommand.DirectionType.Optional) && dirCommand != null) ||
+                        ((command.directionType == AttackCommand.DirectionType.MustNotInclude ||
+                        command.directionType == AttackCommand.DirectionType.Optional) && dirCommand == null))
                     {
                         return 1;
                     }
@@ -288,21 +290,21 @@ public class PlayerCommands : NetworkBehaviour
     }
 
     // Get current command if valid
-    private Command GetValidCommand()
+    private AttackCommand GetValidCommand()
     {
         // Check if there is a valid command
         List<string> commandList = GetCommands();
 
         foreach (string cmd in commandList)
         {
-            foreach (Command command in commands)
+            foreach (AttackCommand command in commands)
             {
                 if (cmd == command.command)
                 {
                     // Check if valid direction state
-                    if (((command.directionType == Command.DirectionType.MustInclude || command.directionType == Command.DirectionType.Optional) &&
+                    if (((command.directionType == AttackCommand.DirectionType.MustInclude || command.directionType == AttackCommand.DirectionType.Optional) &&
                         GetValidDirectionCommand() != null) ||
-                        ((command.directionType == Command.DirectionType.MustNotInclude || command.directionType == Command.DirectionType.Optional) &&
+                        ((command.directionType == AttackCommand.DirectionType.MustNotInclude || command.directionType == AttackCommand.DirectionType.Optional) &&
                         commandList.Count == 1)) 
                     {
                         return command;
