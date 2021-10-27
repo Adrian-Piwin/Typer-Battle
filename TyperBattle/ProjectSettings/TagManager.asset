@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Healthbar
   - Time Manager
+  - SpawnPoint
+  - Game Manager
   layers:
   - Default
   - TransparentFX

@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mirror", "Mirror.csproj", "{12D8F7D9-F739-BCA4-F3B5-B6F925971A04}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleWebTransport", "SimpleWebTransport.csproj", "{F50151C7-8E23-27A1-20FE-13357B87BC17}"
@@ -9,11 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mirror.Examples", "Mirror.E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mirror.Components", "Mirror.Components.csproj", "{8D215F15-32A0-1AED-02EC-2E88F2738007}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{00B1E403-1BAF-3947-F665-C8575CD3DF0C}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kcp2k", "kcp2k.csproj", "{47D30B4B-11C5-D339-DE8E-060F75384496}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telepathy", "Telepathy.csproj", "{FA414815-D32F-72AD-07C7-728A33918FE2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{00B1E403-1BAF-3947-F665-C8575CD3DF0C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mirror.Authenticators", "Mirror.Authenticators.csproj", "{61E0DCB6-8D67-0574-FD5E-4F33BF6D5F9F}"
 EndProject
@@ -49,6 +49,10 @@ Global
 		{8D215F15-32A0-1AED-02EC-2E88F2738007}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D215F15-32A0-1AED-02EC-2E88F2738007}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D215F15-32A0-1AED-02EC-2E88F2738007}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00B1E403-1BAF-3947-F665-C8575CD3DF0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00B1E403-1BAF-3947-F665-C8575CD3DF0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00B1E403-1BAF-3947-F665-C8575CD3DF0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00B1E403-1BAF-3947-F665-C8575CD3DF0C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{47D30B4B-11C5-D339-DE8E-060F75384496}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{47D30B4B-11C5-D339-DE8E-060F75384496}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47D30B4B-11C5-D339-DE8E-060F75384496}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -57,10 +61,6 @@ Global
 		{FA414815-D32F-72AD-07C7-728A33918FE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA414815-D32F-72AD-07C7-728A33918FE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA414815-D32F-72AD-07C7-728A33918FE2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{00B1E403-1BAF-3947-F665-C8575CD3DF0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{00B1E403-1BAF-3947-F665-C8575CD3DF0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{00B1E403-1BAF-3947-F665-C8575CD3DF0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{00B1E403-1BAF-3947-F665-C8575CD3DF0C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{61E0DCB6-8D67-0574-FD5E-4F33BF6D5F9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{61E0DCB6-8D67-0574-FD5E-4F33BF6D5F9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61E0DCB6-8D67-0574-FD5E-4F33BF6D5F9F}.Release|Any CPU.ActiveCfg = Release|Any CPU

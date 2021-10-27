@@ -1,0 +1,2 @@
+C:\Users\Adrian\Desktop\Unity Projects\Typer-Battle\TyperBattle\obj\Debug\Mirror.Authenticators.csprojAssemblyReference.cache
+C:\Users\Adrian\Desktop\Unity Projects\Typer-Battle\TyperBattle\obj\Debug\Mirror.Authenticators.csproj.CoreCompileInputs.cache

@@ -1,0 +1,2 @@
+C:\Users\Adrian\Desktop\Unity Projects\Typer-Battle\TyperBattle\obj\Debug\SimpleWebTransport.csprojAssemblyReference.cache
+C:\Users\Adrian\Desktop\Unity Projects\Typer-Battle\TyperBattle\obj\Debug\SimpleWebTransport.csproj.CoreCompileInputs.cache

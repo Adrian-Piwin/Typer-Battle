@@ -18,6 +18,7 @@ public class CollisionDetection : MonoBehaviour
     // Listen for collision
     public void ToggleCollisionDetection(string tag)
     {
+        Debug.Log(gameObject.name);
         collision = null;
         collideTag = tag;
     }

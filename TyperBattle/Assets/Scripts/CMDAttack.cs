@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CollisionType
+public enum AttackType
 {
     // Launch towards direction
     Launch,
@@ -49,7 +49,7 @@ public class CMDAttack : MonoBehaviour
 
     // Type of attack
     [SerializeField]
-    private CollisionType collisionType;
+    private AttackType attackType;
 
     // References
     private PlayerManager playerManager;
@@ -80,14 +80,14 @@ public class CMDAttack : MonoBehaviour
     IEnumerator Attack() 
     {
         // Movement for launch
-        if (collisionType == CollisionType.Launch && dirCommand != null)
+        if (attackType == AttackType.Launch && dirCommand != null)
         {
             // Movement towards given direction
             cmdMovement.DoCommand(dirCommand, force);
         }
 
         // Select directional collider
-        if (collisionType == CollisionType.DirectionalStill)
+        if (attackType == AttackType.DirectionalStill)
         {
             collisionDetection = transform.parent.GetChild(0).GetChild(0).GetComponent<CollisionDetection>();
 

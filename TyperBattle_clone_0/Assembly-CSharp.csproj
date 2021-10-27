@@ -56,7 +56,9 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\CollisionDetection.cs" />
     <Compile Include="Assets\ParrelSync\Examples\CustomArgumentExample.cs" />
+    <Compile Include="Assets\Scripts\TimeManager.cs" />
     <Compile Include="Assets\Scripts\CMDAttack.cs" />
     <Compile Include="Assets\Scripts\UIHealth.cs" />
     <Compile Include="Assets\Scripts\PlayerManager.cs" />
@@ -64,8 +66,7 @@
     <Compile Include="Assets\Scripts\LineRendererArrow.cs" />
     <Compile Include="Assets\Scripts\PlayerCommands.cs" />
     <Compile Include="Assets\Scripts\CMDMovement.cs" />
-    <Compile Include="Assets\Scripts\TimeManager.cs" />
-    <Compile Include="Assets\Scripts\CollisionDetection.cs" />
+    <Compile Include="Assets\Scripts\GameManagement.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Mirror\Plugins\Mono.Cecil\Mono.CecilX.dll" />

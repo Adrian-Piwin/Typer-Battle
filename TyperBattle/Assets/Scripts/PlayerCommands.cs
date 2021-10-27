@@ -43,6 +43,9 @@ public class PlayerCommands : NetworkBehaviour
     [Header("Settings")]
 
     [SerializeField]
+    public bool canPlay;
+
+    [SerializeField]
     private bool blockDelete;
 
     [SerializeField]
@@ -84,6 +87,12 @@ public class PlayerCommands : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Assign Command Txt
+        commandText = transform.GetChild(2).GetComponent<TextMeshPro>();
+
+        // Assign cooldown script
+        playerCooldown = GetComponent<PlayerCooldown>();
+
         // Assign scripts to their commands
         CMDAttack[] atkScripts = transform.GetChild(1).GetComponents<CMDAttack>();
         foreach (AttackCommand atkCmd in commands) 
@@ -96,12 +105,6 @@ public class PlayerCommands : NetworkBehaviour
         }
 
         currentCommand = new List<string>();
-    }
-
-    private void Update()
-    {
-        playerCooldown = GetComponent<PlayerCooldown>();
-        commandText = GetComponent<TextMeshPro>();
     }
 
     private void OnKeyPress(string key)
@@ -376,7 +379,7 @@ public class PlayerCommands : NetworkBehaviour
     [Client]
     void OnGUI()
     {
-        if (!hasAuthority) return;
+        if (!hasAuthority || !canPlay) return;
 
         Event e = Event.current;
 

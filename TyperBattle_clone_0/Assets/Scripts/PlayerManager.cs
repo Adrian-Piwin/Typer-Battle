@@ -21,43 +21,46 @@ public class PlayerManager : NetworkBehaviour
     private float distanceFromGround;
 
     // References
-
-    // Player animator
     private Animator animator;
-
-    // Camera animator
     private Animator cameraAnimator;
-
-    // Health UI
     private UIHealth uiHealth;
-
     private PlayerCommands playerCommands;
     private TimeManager timeManager;
+    private GameManagement gameManagement;
 
     // Start is called before the first frame update
     void Start()
     {
+        // Assign references
         animator = GetComponent<Animator>();
         playerCommands = GetComponent<PlayerCommands>();
         timeManager = GameObject.FindGameObjectWithTag("Time Manager").GetComponent<TimeManager>();
-
-        // Assign camera animator
+        gameManagement = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameManagement>();
         cameraAnimator = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Animator>();
 
         // Assign starting health
         startingHealth = health;
 
+        // Find what player number this is 
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        int thisPlayer = 0;
+        foreach (GameObject player in players) 
+        {
+            if (this.gameObject == player)
+                break;
+            thisPlayer++;
+        }
+
         // Assign UI to player
         GameObject[] healthUIs = GameObject.FindGameObjectsWithTag("Healthbar");
-        foreach (GameObject hUI in healthUIs) 
-        {
-            if (!hUI.GetComponent<UIHealth>().isAssigned) 
-            {
-                uiHealth = hUI.GetComponent<UIHealth>();
-                hUI.GetComponent<UIHealth>().isAssigned = true;
-                break;
-            }
-        }
+        uiHealth = healthUIs[thisPlayer].GetComponent<UIHealth>();
+
+        // Assign spawn point
+        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
+        transform.position = spawnPoints[thisPlayer].transform.position;
+
+        // Tell game manager the player is connected
+        gameManagement.PlayerConnected(this.gameObject);
     }
 
     // Deal damage to opponent on the network

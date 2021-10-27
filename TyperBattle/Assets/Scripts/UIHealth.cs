@@ -5,7 +5,6 @@ using Mirror;
 
 public class UIHealth : NetworkBehaviour
 {
-    public bool isAssigned;
 
     [SerializeField]
     private float speed;
