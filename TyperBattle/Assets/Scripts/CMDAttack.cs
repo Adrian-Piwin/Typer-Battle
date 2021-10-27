@@ -4,12 +4,24 @@ using UnityEngine;
 
 public enum AttackType
 {
-    // Launch towards direction
+    // Launch towards direction and touch for hit
     Launch,
-    // Stay still
-    Still,
-    // Stay still and check for collision in front of direction
-    DirectionalStill
+    // Stay still and touch for hit
+    Touch,
+    // Stay still and check for hit in front of direction
+    Infront,
+    // Stay still and check all around for hit
+    Around
+};
+
+public enum KnockbackType 
+{
+    Up,
+    Down,
+    Left,
+    Right,
+    Towards,
+    Away
 };
 
 public class CMDAttack : MonoBehaviour
@@ -19,13 +31,31 @@ public class CMDAttack : MonoBehaviour
     [SerializeField]
     public string commandName;
 
+    // Damage delt to other player if successfully hit
+    [SerializeField]
+    public int damage;
+
     // Cool down if attack is unsuccessful
     [SerializeField]
     public int cooldown;
 
-    // Damage delt to other player if successfully hit
+    // Stun length to other player
     [SerializeField]
-    public int damage;
+    public float stunLength;
+
+    // Knockback force
+    [SerializeField]
+    public float knockbackForce;
+
+    // Direction to knockback
+    [SerializeField]
+    public KnockbackType knockbackType;
+
+    // Type of attack
+    [SerializeField]
+    private AttackType attackType;
+
+    [Header("Touch/Launch Attack Settings")]
 
     // How long attack lasts in order to successfully hit
     [SerializeField]
@@ -35,30 +65,21 @@ public class CMDAttack : MonoBehaviour
     [SerializeField]
     public float force;
 
-    // Knockback force
-    [SerializeField]
-    public float knockback;
+    [Header("Infront/Around Attack Settings")]
 
-    // Direction to knockback
+    // Distance for infront attack
     [SerializeField]
-    public Vector2 knockbackDir;
-
-    // Stun length to other player
-    [SerializeField]
-    public float stunLength;
-
-    // Type of attack
-    [SerializeField]
-    private AttackType attackType;
+    public float attackDistance;
 
     // References
     private PlayerManager playerManager;
     private CMDMovement cmdMovement;
     private PlayerCooldown playerCooldown;
-    private CollisionDetection collisionDetection;
 
     // Variables
     private List<DirectionCommand> dirCommand;
+    private bool didHit;
+    private bool isTouchingOpponent;
 
     private void Start()
     {
@@ -73,11 +94,11 @@ public class CMDAttack : MonoBehaviour
         this.dirCommand = dirCommand;
 
         // Attack opponent
-        StartCoroutine(Attack());
+        Attack();
     }
 
     // Attempt to attack
-    IEnumerator Attack() 
+    private void Attack() 
     {
         // Movement for launch
         if (attackType == AttackType.Launch && dirCommand != null)
@@ -86,52 +107,135 @@ public class CMDAttack : MonoBehaviour
             cmdMovement.DoCommand(dirCommand, force);
         }
 
-        // Select directional collider
-        if (attackType == AttackType.DirectionalStill)
-        {
-            collisionDetection = transform.parent.GetChild(0).GetChild(0).GetComponent<CollisionDetection>();
+        didHit = false;
 
-            // Get direction for collider
-            Vector2 direction = Vector2.zero;
-            foreach (DirectionCommand dir in dirCommand)
+        // Attack based on attack type
+        if (attackType == AttackType.Launch || attackType == AttackType.Touch)
+            StartCoroutine(TouchAttack());
+        else if (attackType == AttackType.Around)
+            AroundAttack();
+        else if (attackType == AttackType.Infront)
+            InfrontAttack();
+
+        // Deal damage on hit
+        if (didHit)
+            playerManager.DealDamage(FindOpponent(), damage, stunLength, knockbackForce, GetKnockbackDirection(knockbackType));
+        else
+            playerCooldown.ApplyCooldown(cooldown);
+    }
+
+    // Do attack infront of player
+    private void InfrontAttack() 
+    {
+        // Get direction for collider
+        Vector2 direction = Vector2.zero;
+        foreach (DirectionCommand dir in dirCommand)
+        {
+            direction += dir.direction;
+        }
+        direction = direction.normalized;
+
+        Debug.DrawRay(transform.parent.position, direction * attackDistance, Color.red, 1f);
+        RaycastHit2D hit = Physics2D.Raycast(transform.parent.position, direction, attackDistance);
+        if (hit.collider != null && hit.transform.tag == "Player")
+            didHit = true;
+    }
+
+    // Do attack all around player
+    private void AroundAttack()
+    {
+        List<Vector2> dirs = new List<Vector2>
+        {
+            Vector2.up,
+            Vector2.down,
+            Vector2.right,
+            Vector2.left,
+            Vector2.up + Vector2.right,
+            Vector2.up + Vector2.left,
+            Vector2.down + Vector2.right,
+            Vector2.down + Vector2.left
+        };
+
+        foreach (Vector2 dir in dirs) 
+        {
+            Debug.DrawRay(transform.parent.position, dir * attackDistance, Color.red, 1f);
+            RaycastHit2D hit = Physics2D.Raycast(transform.parent.position, dir, attackDistance);
+            if (hit.collider != null && hit.transform.tag == "Player")
             {
-                direction += dir.direction;
+                didHit = true;
+                break;
             }
-
-            collisionDetection.SetDirection(direction);
-            collisionDetection.ToggleCollisionDetection("Player");
         }
-        // Select player collider
-        else 
-        {
-            collisionDetection = transform.parent.GetComponent<CollisionDetection>();
-            collisionDetection.ToggleCollisionDetection("Player");
-        }
+    }
 
+    // Do attack based on touching another player
+    IEnumerator TouchAttack() 
+    {
         // Check if player is hit within attack time
-        bool hit = false;
         float timer = 0.0f;
         while (timer < attackTime)
         {
             timer += Time.deltaTime;
 
             // Check if player hit other player
-            if (collisionDetection.GetCollisionResults() != null)
+            if (isTouchingOpponent)
             {
                 // Deal damage
-                playerManager.DealDamage(collisionDetection.GetCollisionResults(), damage, stunLength, knockback, knockbackDir);
-                hit = true;
+                didHit = true;
                 break;
             }
 
             yield return null;
         }
 
-        // Apply cooldown if did not hit other player
-        if (!hit)
-            playerCooldown.ApplyCooldown(cooldown);
-
         yield return null;
+    }
+
+    // Return direction for knockback
+    private Vector2 GetKnockbackDirection(KnockbackType kbType) 
+    {
+        switch (kbType) 
+        {
+            case KnockbackType.Up:
+                return Vector2.up;
+            case KnockbackType.Down:
+                return Vector2.down;
+            case KnockbackType.Left:
+                return Vector2.left;
+            case KnockbackType.Right:
+                return Vector2.right;
+            case KnockbackType.Away:
+                return ((Vector2)(FindOpponent().transform.position - transform.parent.position)).normalized;
+            case KnockbackType.Towards:
+                return ((Vector2)((FindOpponent().transform.position - transform.parent.position) * -1)).normalized;
+        }
+
+        return Vector2.right;
+    }
+
+    // Find opponent
+    private GameObject FindOpponent() 
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players) 
+        {
+            if (player != transform.parent.gameObject)
+                return player;
+        }
+
+        return null;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+            isTouchingOpponent = true;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+            isTouchingOpponent = false;
     }
 
 }

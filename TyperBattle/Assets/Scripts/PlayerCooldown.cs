@@ -13,6 +13,7 @@ public class PlayerCooldown : NetworkBehaviour
     private float startingIndicatorSize;
 
     private PlayerCommands playerCommands;
+    private IEnumerator cooldownCoroutine;
 
     private void Start()
     {
@@ -21,8 +22,14 @@ public class PlayerCooldown : NetworkBehaviour
 
     public void ApplyCooldown(float time) 
     {
+        // Stop prev cooldown if any
+        if (cooldownCoroutine != null)
+            StopCoroutine(cooldownCoroutine);
+
+        // Go on cooldown
         playerCommands.onCooldown = true;
-        StartCoroutine(ScaleToTargetCoroutine(new Vector2(0, cooldownIndicator.localScale.y), time));
+        cooldownCoroutine = ScaleToTargetCoroutine(new Vector2(0, cooldownIndicator.localScale.y), time);
+        StartCoroutine(cooldownCoroutine);
     }
 
     private IEnumerator ScaleToTargetCoroutine(Vector2 targetScale, float duration)

@@ -1,41 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1180148121149462762
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8156594558695434760}
-  m_Layer: 0
-  m_Name: PlayerCollision
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &8156594558695434760
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1180148121149462762}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 2642216770207742867}
-  m_Father: {fileID: 5701865109969677666}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3720688975515755441
 GameObject:
   m_ObjectHideFlags: 0
@@ -45,9 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6728572892550184915}
+  - component: {fileID: 2621107149336139111}
   - component: {fileID: 3336606830283589638}
   - component: {fileID: 1793190241066193324}
   - component: {fileID: 203276002226830984}
+  - component: {fileID: 7199966462751016194}
+  - component: {fileID: 1594486612432070798}
   m_Layer: 0
   m_Name: PlayerCommands
   m_TagString: Untagged
@@ -67,13 +34,39 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5701865109969677666}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!61 &2621107149336139111
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3720688975515755441}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.1, y: 1.1}
+  m_EdgeRadius: 0
 --- !u!114 &3336606830283589638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,14 +94,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   commandName: Light
-  cooldown: 1
   damage: 5
+  cooldown: 1
+  stunLength: 0
+  knockbackForce: 0
+  knockbackType: 0
+  attackType: 0
   attackTime: 0.3
   force: 400
-  knockback: 0
-  knockbackDir: {x: 0, y: 0}
-  stunLength: 0
-  collisionType: 0
+  attackDistance: 0
 --- !u!114 &203276002226830984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,15 +115,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77580710759ce6e478bcf7d80f2ab4bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandName: Test
+  commandName: Throw
+  damage: 2
   cooldown: 1
-  damage: 5
-  attackTime: 0.3
-  force: 0
-  knockback: 400
-  knockbackDir: {x: 0, y: 1}
   stunLength: 1
-  collisionType: 2
+  knockbackForce: 400
+  knockbackType: 0
+  attackType: 2
+  attackTime: 0
+  force: 0
+  attackDistance: 1.5
+--- !u!114 &7199966462751016194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3720688975515755441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77580710759ce6e478bcf7d80f2ab4bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  commandName: Repel
+  damage: 3
+  cooldown: 1
+  stunLength: 0.5
+  knockbackForce: 400
+  knockbackType: 5
+  attackType: 3
+  attackTime: 0
+  force: 0
+  attackDistance: 1.5
+--- !u!114 &1594486612432070798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3720688975515755441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77580710759ce6e478bcf7d80f2ab4bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  commandName: Spin
+  damage: 4
+  cooldown: 1
+  stunLength: 0
+  knockbackForce: 300
+  knockbackType: 5
+  attackType: 1
+  attackTime: 1
+  force: 0
+  attackDistance: 0
 --- !u!1 &7201265084148538123
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,7 +198,7 @@ Transform:
   m_LocalScale: {x: 0, y: 0.05, z: 1}
   m_Children: []
   m_Father: {fileID: 5701865109969677666}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7201265084148538121
 SpriteRenderer:
@@ -241,7 +280,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5701865109969677666}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7201265084299420720
 SpriteRenderer:
@@ -303,7 +342,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5701865109969677666}
-  - component: {fileID: 4015265926876572019}
   - component: {fileID: 7201265085099378588}
   - component: {fileID: 7201265085099378587}
   - component: {fileID: 8797779947225008700}
@@ -311,7 +349,7 @@ GameObject:
   - component: {fileID: 7201265085099378591}
   - component: {fileID: 1533179162769224321}
   - component: {fileID: 6300934528374657332}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -329,7 +367,6 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 8156594558695434760}
   - {fileID: 6728572892550184915}
   - {fileID: 4735456846933886874}
   - {fileID: 7201265084148538120}
@@ -342,18 +379,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4015265926876572019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7201265085099378590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb3c436e669011249baee86f15bddace, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &7201265085099378588
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -470,6 +495,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  canPlay: 0
   blockDelete: 0
   exitTypingStateCD: 0.5
   typingCap: 20
@@ -492,9 +518,15 @@ MonoBehaviour:
   - commandName: Light
     command: LIGHT
     directionType: 0
-  - commandName: Test
-    command: TEST
+  - commandName: Throw
+    command: THROW
     directionType: 0
+  - commandName: Repel
+    command: REPEL
+    directionType: 1
+  - commandName: Spin
+    command: SPIN
+    directionType: 1
   validCommandColor:
     serializedVersion: 2
     rgba: 4281794304
@@ -517,81 +549,6 @@ MonoBehaviour:
   syncInterval: 0.1
   cooldownIndicator: {fileID: 7201265084148538120}
   startingIndicatorSize: 1
---- !u!1 &8345512771494019018
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2642216770207742867}
-  - component: {fileID: 995611815729922955}
-  - component: {fileID: 5914322908437141132}
-  m_Layer: 0
-  m_Name: PlayerCollisionDirectional
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2642216770207742867
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8345512771494019018}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 8156594558695434760}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.002, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!61 &995611815729922955
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8345512771494019018}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
---- !u!114 &5914322908437141132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8345512771494019018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb3c436e669011249baee86f15bddace, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &9166648430666372131
 GameObject:
   m_ObjectHideFlags: 0
@@ -622,7 +579,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5701865109969677666}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -757,7 +714,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 0}
+  m_renderer: {fileID: 898862000383544882}
   m_maskType: 0
   _SortingLayerID: 69438911
   _SortingOrder: 10

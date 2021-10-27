@@ -88,13 +88,13 @@ public class PlayerCommands : NetworkBehaviour
     void Start()
     {
         // Assign Command Txt
-        commandText = transform.GetChild(2).GetComponent<TextMeshPro>();
+        commandText = transform.GetChild(1).GetComponent<TextMeshPro>();
 
         // Assign cooldown script
         playerCooldown = GetComponent<PlayerCooldown>();
 
         // Assign scripts to their commands
-        CMDAttack[] atkScripts = transform.GetChild(1).GetComponents<CMDAttack>();
+        CMDAttack[] atkScripts = transform.GetChild(0).GetComponents<CMDAttack>();
         foreach (AttackCommand atkCmd in commands) 
         {
             foreach (CMDAttack atkScript in atkScripts) 
