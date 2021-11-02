@@ -1,4 +1,0 @@
-# Starting compiling Assembly-CSharp.dll
-C:\Program Files\Unity Editor\2020.2.2f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-cf86278674f3a5b4b913359bc7affda3
-# Starting IL post processing on Assembly-CSharp.dll
-"C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/bin/mono.exe" "C:/Program Files/Unity Editor/2020.2.2f1/Editor/Data/Tools/ILPostProcessorRunner/ILPostProcessorRunner.exe" @"C:/Users/Adrian/Desktop/Unity Projects/Typer-Battle/TyperBattle_clone_0/Temp/UnityTempFile-6b7a427808e457b49a913d3d98b17cdc"
